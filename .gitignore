@@ -1,3 +1,11 @@
 Controllers.meta
 SceneManagers.meta
 Statics.meta
+/Controllers/CameraController.cs.meta
+/Controllers/PlayerController.cs.meta
+/SceneManagers/SceneManagerGame.cs.meta
+/SceneManagers/SceneManagerTitle.cs.meta
+/Statics/GameObjectClasses.meta
+/Statics/SceneManagement.meta
+/Statics/SceneManagement/SceneLoader.cs.meta
+/Statics/GameObjectClasses/Player.cs.meta
