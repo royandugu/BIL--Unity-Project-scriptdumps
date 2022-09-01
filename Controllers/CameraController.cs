@@ -2,10 +2,12 @@
 
 public class CameraController : MonoBehaviour
 {
-
-    [SerializeField]
     private Transform playerTransform;
     private Vector3 transPos;
+
+    private void Awake(){
+        playerTransform=GameObject.FindWithTag("Player").transform;    
+    }
 
     private void LateUpdate() {
         if(!playerTransform) return;

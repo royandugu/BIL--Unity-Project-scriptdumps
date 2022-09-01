@@ -9,3 +9,6 @@ Statics.meta
 /Statics/SceneManagement.meta
 /Statics/SceneManagement/SceneLoader.cs.meta
 /Statics/GameObjectClasses/Player.cs.meta
+/GameFunctionalities.meta
+/README.md.meta
+/GameFunctionalities/LookAtTrigger.cs.meta
