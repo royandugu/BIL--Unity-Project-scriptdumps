@@ -1,5 +1,5 @@
 using UnityEngine;
-class LookAtTrigger : MonoBehaviour {
+class RadialTrigger : MonoBehaviour {
     private Transform playerTransform;
     private float xCord,yCord;
     private void Start() {
@@ -10,10 +10,13 @@ class LookAtTrigger : MonoBehaviour {
         yCord=playerTransform.position.y;
         float distanceSquare=(xCord-transform.position.x)*(xCord-transform.position.x)+(yCord-transform.position.y)*(yCord-transform.position.y);
         if(distanceSquare<=9) ShowOptions();
-        else return;
+        else {
+            FindObjectOfType<UIControllers>().MakeInvisible(0);
+            return;
+        }
     }
     public void ShowOptions(){
-        //Unity text UI
+        FindObjectOfType<UIControllers>().MakeVisible(0);
         Debug.Log("Player can trigger a conversation with the NPC");
     }
     public void TriggerConversation(){
