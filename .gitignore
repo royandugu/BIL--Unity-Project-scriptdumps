@@ -14,3 +14,6 @@ Statics.meta
 /GameFunctionalities/RadialTrigger.cs.meta
 /Statics/DialogSchema.cs.meta
 /Controllers/UIControllers.cs.meta
+/Renderers.meta
+/Renderers/TextRenderer.cs.meta
+/GameFunctionalities/ConversationTrigger.cs.meta

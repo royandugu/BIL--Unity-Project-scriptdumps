@@ -10,16 +10,12 @@ class RadialTrigger : MonoBehaviour {
         yCord=playerTransform.position.y;
         float distanceSquare=(xCord-transform.position.x)*(xCord-transform.position.x)+(yCord-transform.position.y)*(yCord-transform.position.y);
         if(distanceSquare<=9) ShowOptions();
-        else {
-            FindObjectOfType<UIControllers>().MakeInvisible(0);
-            return;
-        }
+        else FindObjectOfType<UIControllers>().MakeInvisible(0);
     }
     public void ShowOptions(){
         FindObjectOfType<UIControllers>().MakeVisible(0);
-        Debug.Log("Player can trigger a conversation with the NPC");
     }
     public void TriggerConversation(){
-        //Hop to the conversation screen, so all objects will automatically get destroyed except for player hmm
+        
     }
 }

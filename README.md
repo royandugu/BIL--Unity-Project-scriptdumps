@@ -8,3 +8,9 @@ Scripts that controlls scene traversing
 
 3. Statics <br>
 Scripts that are not inherited from MonoBehaviour <br>
+
+
+## To-Do<br>
+
+1. When the conversation is triggered, player looks at the NPC (add a look at trigger or otherway)
+ 
