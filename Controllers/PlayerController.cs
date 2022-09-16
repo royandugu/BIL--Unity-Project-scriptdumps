@@ -9,16 +9,24 @@ public class PlayerController : MonoBehaviour
     private float speed=6,xPressValue,yPressValue;
     private byte turnDir=2; 
     private bool inConversation=false;
+    private bool called=false;
     
     private void Awake() {
         playerSprite=GetComponent<SpriteRenderer>();    
         animController=GetComponent<Animator>();
         animController.speed=0.5f;
     }
-    
+
     private void Update()
     {
-        if(!inConversation){
+        if(inConversation){
+            if(called==true) return;
+            else{
+                called=true;
+            }
+        }  
+        else{
+            called=false;
             xPressValue=Input.GetAxisRaw("Horizontal");
             yPressValue=Input.GetAxisRaw("Vertical");
             AnimatePlayer();
@@ -68,7 +76,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    
+
     public void MovePlayer(){
         transform.position+=new Vector3(xPressValue,yPressValue,0)*Time.deltaTime*speed;
     }
