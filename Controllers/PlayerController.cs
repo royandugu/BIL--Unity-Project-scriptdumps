@@ -36,9 +36,12 @@ public class PlayerController : MonoBehaviour
         animationState=newState;    
     }
     
-    private void FlipPlayer(){
-        if(xPressValue<0) playerSprite.flipX=true;
-        else playerSprite.flipX=false;
+    public void FlipPlayer(bool condition){
+        if(condition){
+            if(xPressValue<0) playerSprite.flipX=true;
+            else playerSprite.flipX=false;
+        }
+        else playerSprite.flipX=true;
     }
 
     public void AnimatePlayer(){
@@ -50,7 +53,7 @@ public class PlayerController : MonoBehaviour
         else{
             if(xPressValue!=0 && yPressValue!=0){
                 turnDir=2;
-                FlipPlayer();
+                FlipPlayer(true);
                 ChooseAnimationState("walkX");    
             }
             else{
@@ -64,7 +67,7 @@ public class PlayerController : MonoBehaviour
                 }
                 if(yPressValue==0){
                     turnDir=2;
-                    FlipPlayer();
+                    FlipPlayer(true);
                     ChooseAnimationState("walkX");
                 }
             }

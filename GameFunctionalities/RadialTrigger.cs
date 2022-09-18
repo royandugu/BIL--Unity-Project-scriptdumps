@@ -11,7 +11,7 @@ class RadialTrigger : MonoBehaviour {
         xCord1=playerTransform.position.x;
         yCord1=playerTransform.position.y;
         float distanceSquare=(xCord1-transform.position.x)*(xCord1-transform.position.x)+(yCord1-transform.position.y)*(yCord1-transform.position.y);
-        if(distanceSquare<=9) ShowOptions();
+        if(distanceSquare<=8) ShowOptions();
         else FindObjectOfType<UIControllers>().MakeInvisible(0);
         if(player.inConversation && !player.called) GetPlayerFixWatch();   
     }
@@ -19,15 +19,14 @@ class RadialTrigger : MonoBehaviour {
         player.called=true;
         float xCord2=transform.position.x;
         float yCord2=transform.position.y;
-        if(xCord1==xCord2){
-            if(yCord1>yCord2) player.ChooseAnimationState("idleYNeg");
-            else if(yCord1<yCord2) player.ChooseAnimationState("idleYPos");
-            else player.ChooseAnimationState("idleX");
+        if(yCord1==yCord2){
+            if(xCord1>xCord2) player.FlipPlayer(false);
         }
-        else{
-            float slope=(yCord2-yCord1)/(xCord2-xCord1);
-            Debug.Log(slope);
-        }
+        else if(yCord1>yCord2){
+            if(yCord1>yCord2+1.3) player.ChooseAnimationState("idleYPos");
+            else if(xCord1>xCord2) player.FlipPlayer(false);
+        }   
+        else player.ChooseAnimationState("idleYNeg");
     }
     public void ShowOptions(){
         FindObjectOfType<UIControllers>().MakeVisible(0);
