@@ -11,5 +11,5 @@ Scripts that are not inherited from MonoBehaviour <br>
 
 
 ## To-Do<br>
-1. File handling for conversation storing
+1. File handling for conversation storing :- Use JSON DOM for random access of the files
  
