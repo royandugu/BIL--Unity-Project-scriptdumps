@@ -17,3 +17,6 @@ Statics.meta
 /Renderers.meta
 /Renderers/TextRenderer.cs.meta
 /GameFunctionalities/ConversationTrigger.cs.meta
+/Statics/CharacterConversationScripts.meta
+/Statics/ConversationFetcher.cs.meta
+/Statics/CharacterConversationScripts/sharon.json.meta
