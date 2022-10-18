@@ -1,6 +1,14 @@
 {
-    "Sharon":{
-        "phaseOne":["Hello","Hi"],
-        "phaseTwo":["Ok","Bruh"]
-    }
+    "phaseOne":[
+        {
+            "name":"Sharon",
+            "dialogs":["hi","hello"],
+            "tree":[1,0]
+        },
+        {
+            "name":"Puru",
+            "dialogs":["hi","hello"],
+            "tree":[2,3]
+        }
+    ]
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 class RadialTrigger : MonoBehaviour {
-    public string npcName;
+    public int npcNumber;
     private PlayerController player;
     private Transform playerTransform;
     private float xCord1,yCord1;
@@ -28,13 +28,9 @@ class RadialTrigger : MonoBehaviour {
             else if(xCord1>xCord2) player.FlipPlayer(false);
         }   
         else player.ChooseAnimationState("idleYNeg");
-        TriggerConversation();   
+        FindObjectOfType<ConversationTrigger>().TriggerConversation();
     }
     public void ShowOptions(){
         FindObjectOfType<UIControllers>().MakeVisible(0);
-    }
-    public void TriggerConversation(){
-        //
-        Debug.Log(this.npcName);       
     }
 }
