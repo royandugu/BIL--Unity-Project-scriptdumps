@@ -1,14 +1,17 @@
 using System.IO;
 using UnityEngine;
-public class NPC:MonoBehaviour{
+public class NPC{
+    public class One{
+        public Sharon Sharon;
+    }
     [System.Serializable]
     public class Sharon{
-        public string[] phaseOne;
-        public string[] phaseTwo;
+            public string[] phaseOne;
+            public string[] phaseTwo;
     }
-    private void Start() {
+    public void GetText(){
         string jsonString=File.ReadAllText("Assets/Scripts/Statics/CharacterConversationScripts/characterDialogues.json");
-        Sharon sharonDialogs=JsonUtility.FromJson<Sharon>(jsonString);
-        Debug.Log(sharonDialogs.phaseOne[0]);               
+        One dialogs=JsonUtility.FromJson<One>(jsonString);   
+        Debug.Log(dialogs.Sharon.phaseOne[0]);           
     }
 }
