@@ -4,7 +4,7 @@ using UnityEngine;
 public class ConversationFetcher:MonoBehaviour
 {
 
-    public void GetConversation(NPC n){
+    public void GetConversation(Npc n){
     }
     private void Start() {
     }

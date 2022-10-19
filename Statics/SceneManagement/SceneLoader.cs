@@ -7,9 +7,13 @@ public class SceneLoader
         LoadGame,
         MainMenu,
         PlayerSelectScene,
-        Settings
+        Settings,
+        ConversationScene
     }
     public static void LoadScene(Scenes sceneName){
         SceneManager.LoadScene(sceneName.ToString());
+    }
+    public static string GetCurrentScene(){
+        return SceneManager.GetActiveScene().name;
     }
 }

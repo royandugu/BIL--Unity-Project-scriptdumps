@@ -11,5 +11,5 @@ Scripts that are not inherited from MonoBehaviour <br>
 
 
 ## To-Do<br>
-1. How to get Json? System.Type is not accepted in <>
+1. Make the NpcCollections undestroyable while moving form game scene to conversation scene
  

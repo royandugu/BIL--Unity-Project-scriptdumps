@@ -1,6 +1,6 @@
 using System.IO;
 using UnityEngine;
-public class NPC:MonoBehaviour{
+public class Npc:MonoBehaviour{
     public class PhaseOneContainer{
         public NpcInfo[] phaseOne;
     }
@@ -8,7 +8,7 @@ public class NPC:MonoBehaviour{
     public class NpcInfo{
         public string name;
         public string[] dialogs;
-        public int[] tree;
+        public byte[] tree;
     }
     public string GetName(string name){
         return name;
@@ -16,10 +16,10 @@ public class NPC:MonoBehaviour{
     public string[] GetDialog(string[] dialogs){
         return dialogs;
     }
-    public int[] GetTree(int[] tree){
+    public byte[] GetTree(byte[] tree){
         return tree;
     }
-    public void GetInfo(int npcNo,int infoFlag){
+    public void GetInfo(byte npcNo,byte infoFlag){
         string jsonString=File.ReadAllText("Assets/Scripts/Statics/CharacterConversationScripts/characterDialogues.json");
         PhaseOneContainer npcInfo=JsonUtility.FromJson<PhaseOneContainer>(jsonString);   
         if(infoFlag==0) GetName(npcInfo.phaseOne[npcNo].name);
