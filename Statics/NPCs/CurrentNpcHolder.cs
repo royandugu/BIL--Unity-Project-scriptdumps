@@ -1,6 +1,6 @@
 using UnityEngine;
 public class CurrentNpcHolder : MonoBehaviour {
-    private byte npcNumber;
+    public byte npcNumber;
     public void SetNpcNumber(byte number){
         if(npcNumber==number) return;
         else npcNumber=number;

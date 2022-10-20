@@ -4,7 +4,6 @@ public class PlayerController : MonoBehaviour
 {
     private SpriteRenderer playerSprite;
     private Animator animController;
-    
     private string animationState;
     private float speed=6,xPressValue,yPressValue;
     private byte turnDir=2; 
@@ -13,7 +12,6 @@ public class PlayerController : MonoBehaviour
         animController=GetComponent<Animator>();
         animController.speed=0.5f;
     }
-
     private void Update()
     {
         xPressValue=Input.GetAxisRaw("Horizontal");
@@ -22,7 +20,6 @@ public class PlayerController : MonoBehaviour
         MovePlayer();
       
     }
-    
     public void ChooseAnimationState(string newState){
         if(animationState==newState) return;
         else {
@@ -30,7 +27,6 @@ public class PlayerController : MonoBehaviour
         }
         animationState=newState;    
     }
-    
     public void FlipPlayer(bool condition){
         if(condition){
             if(xPressValue<0) playerSprite.flipX=true;
@@ -38,7 +34,6 @@ public class PlayerController : MonoBehaviour
         }
         else playerSprite.flipX=true;
     }
-
     public void AnimatePlayer(){
         if(xPressValue==0 && yPressValue==0){
             if(turnDir==0) ChooseAnimationState("idleYPos");
@@ -68,7 +63,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
     public void MovePlayer(){
         transform.position+=new Vector3(xPressValue,yPressValue,0)*Time.deltaTime*speed;
     }

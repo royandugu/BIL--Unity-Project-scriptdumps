@@ -11,5 +11,4 @@ Scripts that are not inherited from MonoBehaviour <br>
 
 
 ## To-Do<br>
-1. Make the NpcCollections undestroyable while moving form game scene to conversation scene
  
