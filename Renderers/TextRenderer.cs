@@ -1,13 +1,16 @@
 using UnityEngine;
 using TMPro;
 class TextRenderer:MonoBehaviour{
+    //Fetching classes
+    
+    //Textrender instances
     [SerializeField]
     private TMP_Text textMesh;
+    private byte npcNo,phaseNo;
+    private byte[] convTree;
     private void Start() {
-        /*
-            1. Get all the required information, which NPC is it and it's tree
-        */
-        byte npcNumber=FindObjectOfType<CurrentNpcHolder>().npcNumber;
-        Debug.Log(npcNumber);
+        npcNo=FindObjectOfType<CurrentNpcHolder>().npcNumber;
+        //phaseOne
+        
     }
 }

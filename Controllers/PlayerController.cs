@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
     private Animator animController;
     private string animationState;
     private float speed=6,xPressValue,yPressValue;
-    private byte turnDir=2; 
+    public byte turnDir=2,phaseValue=1; 
     private void Awake() {
         playerSprite=GetComponent<SpriteRenderer>();    
         animController=GetComponent<Animator>();
