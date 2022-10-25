@@ -26,3 +26,8 @@ Statics.meta
 /Fetchers/ConversationFetcher.cs.meta
 /Statics/CharacterConversationScripts/characterDialogues.json.meta
 /Statics/NPCs/CurrentNpcHolder.cs.meta
+/NPCFunctions.meta
+/Statics/PhaseFormats/NpcInfo.cs.meta
+/Statics/PhaseFormats/PhaseOneContainer.cs.meta
+/Statics/PhaseFormats.meta
+/NPCFunctions/CurrentNpcHolder.cs.meta

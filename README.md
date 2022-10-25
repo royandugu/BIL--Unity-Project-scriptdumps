@@ -11,6 +11,5 @@ Scripts that are not inherited from MonoBehaviour <br>
 
 
 ## To-Do<br>
-1. As soon as game starts the fetching from json happens (ConversationFetcher script)
-2. Then the fetched values are rendered then when the next phase starts, the values are re-fetched
+1. Start the conversation tree in Update in Renderers
  
