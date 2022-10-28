@@ -11,5 +11,7 @@ Scripts that are not inherited from MonoBehaviour <br>
 
 
 ## To-Do<br>
-1. Start the conversation tree in Update in Renderers
+1. Understand the binary tree working 
+2. Start the tree in update of scene
+3. How to make clickable texts and then find which one the user clicked
  

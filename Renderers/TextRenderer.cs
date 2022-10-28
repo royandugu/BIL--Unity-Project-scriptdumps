@@ -16,6 +16,10 @@ class TextRenderer:MonoBehaviour{
         npcNo=FindObjectOfType<CurrentNpcHolder>().npcNumber;
         PhaseOneContainer npcInfo=GetNpcInfo<PhaseOneContainer>(); //Checking with phase numbers
         convTree=npcInfo.phaseOne[npcNo].tree;
-        Debug.Log(convTree[0]);
+    }    
+    private void Update(){
+        BinaryTree bt=new BinaryTree();
+        Node n=bt.GetRoot(convTree);
+        bt.TraverseTree(n);
     }
 }
