@@ -31,3 +31,5 @@ Statics.meta
 /Statics/PhaseFormats/PhaseOneContainer.cs.meta
 /Statics/PhaseFormats.meta
 /NPCFunctions/CurrentNpcHolder.cs.meta
+/Statics/ConversationTree.cs.meta
+/Statics/Node.cs.meta
