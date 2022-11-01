@@ -33,3 +33,4 @@ Statics.meta
 /NPCFunctions/CurrentNpcHolder.cs.meta
 /Statics/ConversationTree.cs.meta
 /Statics/Node.cs.meta
+/GameFunctionalities/PlayerChoiceClickTrigger.cs.meta

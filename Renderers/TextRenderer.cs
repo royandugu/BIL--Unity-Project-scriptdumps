@@ -1,37 +1,61 @@
+using System.Linq;
+using System.Collections;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 class TextRenderer:MonoBehaviour{
   
     [SerializeField]
-    private TMP_Text textMesh;
-    private byte npcNo,phaseNo;
+    private TMP_Text textMesh,optionOneTxt,optionTwoTxt;
+    private bool finishFlag,startFlag;
+    private byte npcNo,phaseNo,clickNo;
     private string[] npcSentences,playerSentences;
+    private string response;
+    private ConversationTree ct;
+    private int index=0,responseLength;
+    Node root;
     public Phase GetNpcInfo<Phase>(){
         string jsonString=File.ReadAllText("Assets/Scripts/Statics/CharacterConversationScripts/lightLineMonologue.json");
         Phase npcInfo=JsonUtility.FromJson<Phase>(jsonString);
         return npcInfo;
     }
-    public void TraverseTree(Node root){
-            if(root==null) return;
-            textMesh.text=playerSentences[root.data];           
-            // else response=npcSentences[root.data];
-            
-            // Console.WriteLine(response+"\n"); 
-            // string condition=Console.ReadLine();
-            // if(condition=="0") TraverseTree(root.left);
-            // else if(condition=="1") TraverseTree(root.right);
+    public IEnumerator RenderText(char letter){
+        startFlag=true;
+        yield return new WaitForSeconds(.1f); 
+        textMesh.text+=letter;
+        index++;
+        if(index==responseLength) {
+            yield return new WaitForSeconds(.3f); 
+            optionOneTxt.text=playerSentences[root.data+1];
+            optionTwoTxt.text=playerSentences[root.data+2];
+            finishFlag=true;
+            yield break;
+        }
+        StartCoroutine(RenderText(response.ElementAt(index)));
+    }
+    private void Awake() {
+        textMesh.text=" ";
+        optionOneTxt.text=" ";
+        optionTwoTxt.text=" ";
     }
     private void Start() {
         //npcNo=FindObjectOfType<CurrentNpcHolder>().npcNumber;
         PhaseOneContainer npcInfo=GetNpcInfo<PhaseOneContainer>(); //Checking with phase numbers
         npcSentences=npcInfo.phaseOne[npcNo].nDialogs;
         playerSentences=npcInfo.phaseOne[npcNo].pDialogs;
-        ConversationTree ct=new ConversationTree(npcInfo.phaseOne[npcNo].tree);
-        Node root=ct.GetRoot(); 
-        TraverseTree(root);
-    }    
-    private void Update(){
-        
+        ct=new ConversationTree(npcInfo.phaseOne[npcNo].tree);
+        root=ct.GetRoot();
+    }
+    private void Update() {
+        if(root==null) FindObjectOfType<SceneManagerTitle>().LoadSavedGame();
+        if(startFlag==false){
+            response=npcSentences[root.data];
+            responseLength=response.Length;           
+            StartCoroutine(RenderText(response.ElementAt(index)));
+        }   
+        else{
+        //PlayerChoiceClickTrigger, access firstClick or secondClick
+        }
     }
 }
