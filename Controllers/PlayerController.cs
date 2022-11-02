@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
         playerSprite=GetComponent<SpriteRenderer>();    
         animController=GetComponent<Animator>();
         animController.speed=0.5f;
+        transform.position=new Vector3(Player.xCord,Player.yCord,0);
     }
     private void Update()
     {
@@ -65,6 +66,8 @@ public class PlayerController : MonoBehaviour
     }
     public void MovePlayer(){
         transform.position+=new Vector3(xPressValue,yPressValue,0)*Time.deltaTime*speed;
+        Player.xCord=transform.position.x;
+        Player.yCord=transform.position.y;
     }
 
 }

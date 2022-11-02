@@ -1,10 +1,7 @@
-﻿class Player{
-    private float mentalHealth;
-    private byte monologueStatus;
-    public Player(float mentalHealth){
-        this.mentalHealth=mentalHealth;
-    }
-    public void ChangeMentalHealth(float parameter){
+﻿public static class Player{
+    public static float mentalHealth=100,xCord,yCord;
+    public static int speed=6;
+    public static void ChangeMentalHealth(float parameter){
         mentalHealth+=parameter;
     }
 }

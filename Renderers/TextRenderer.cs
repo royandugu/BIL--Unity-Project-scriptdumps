@@ -1,14 +1,14 @@
+using System;
 using System.Linq;
 using System.Collections;
 using System.IO;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 class TextRenderer:MonoBehaviour{
   
     [SerializeField]
     private TMP_Text textMesh,optionOneTxt,optionTwoTxt;
-    private bool finishFlag,startFlag;
+    private bool startFlag;
     private byte npcNo,phaseNo,clickNo;
     private string[] npcSentences,playerSentences;
     private string response;
@@ -26,18 +26,13 @@ class TextRenderer:MonoBehaviour{
         textMesh.text+=letter;
         index++;
         if(index==responseLength) {
+            index=0;
             yield return new WaitForSeconds(.3f); 
             optionOneTxt.text=playerSentences[root.data+1];
             optionTwoTxt.text=playerSentences[root.data+2];
-            finishFlag=true;
             yield break;
         }
         StartCoroutine(RenderText(response.ElementAt(index)));
-    }
-    private void Awake() {
-        textMesh.text=" ";
-        optionOneTxt.text=" ";
-        optionTwoTxt.text=" ";
     }
     private void Start() {
         //npcNo=FindObjectOfType<CurrentNpcHolder>().npcNumber;
@@ -48,14 +43,32 @@ class TextRenderer:MonoBehaviour{
         root=ct.GetRoot();
     }
     private void Update() {
-        if(root==null) FindObjectOfType<SceneManagerTitle>().LoadSavedGame();
-        if(startFlag==false){
-            response=npcSentences[root.data];
-            responseLength=response.Length;           
-            StartCoroutine(RenderText(response.ElementAt(index)));
-        }   
-        else{
-        //PlayerChoiceClickTrigger, access firstClick or secondClick
+        try{
+            if(startFlag==false){
+                textMesh.text=" ";
+                optionOneTxt.text=" ";
+                optionTwoTxt.text=" ";
+                response=npcSentences[root.data];
+                responseLength=response.Length;           
+                StartCoroutine(RenderText(response.ElementAt(index)));
+            }   
+            else{
+                if(FindObjectOfType<PlayerChoiceClickTrigger>().firstChoice==true) {
+                    startFlag=false;
+                    root=root.left;
+                    FindObjectOfType<PlayerChoiceClickTrigger>().firstChoice=false;
+                    FindObjectOfType<PlayerChoiceClickTrigger>().secondChoice=false;
+                }
+                else if(FindObjectOfType<PlayerChoiceClickTrigger>().secondChoice==true) {
+                    startFlag=false;
+                    root=root.right;
+                    FindObjectOfType<PlayerChoiceClickTrigger>().firstChoice=false;
+                    FindObjectOfType<PlayerChoiceClickTrigger>().secondChoice=false;
+                }
+            }
+        }
+        catch(Exception e){
+            SceneLoader.LoadScene(SceneLoader.Scenes.GameScene);
         }
     }
 }

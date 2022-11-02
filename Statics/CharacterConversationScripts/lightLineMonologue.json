@@ -3,7 +3,7 @@
         {
             "name":"Sharon",
             "nDialogs":["Hello","Oh.. ok","You seem to like summers","umm... I see"],
-            "pDialogs":["Hi","I am new here","Nice weather, isn't it?","Yeah, its my favourite","sort of"],
+            "pDialogs":["Hi","I am new here","Nice weather, isn't it?","Yeah, its my favourite","sort of","..."],
             "tree":[0,1,-1,-1,2,3,-1,-1,3,-1,-1]
         },
         {

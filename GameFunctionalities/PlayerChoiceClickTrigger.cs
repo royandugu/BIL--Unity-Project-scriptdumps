@@ -1,10 +1,12 @@
 using UnityEngine;
 public class PlayerChoiceClickTrigger:MonoBehaviour{
-    private bool firstChoice=false,secondChoice=false;
+    public bool firstChoice=false,secondChoice=false;
     public void FirstClick(){
+        secondChoice=false;
         firstChoice=true;
     }
     public void SecondClick(){
+        firstChoice=false;
         secondChoice=true;
     }
 }
