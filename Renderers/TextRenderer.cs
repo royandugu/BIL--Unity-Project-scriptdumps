@@ -5,11 +5,12 @@ using System.IO;
 using UnityEngine;
 using TMPro;
 class TextRenderer:MonoBehaviour{
-  
+    Npc npc;
     [SerializeField]
     private TMP_Text textMesh,optionOneTxt,optionTwoTxt;
+    private PlayerChoiceClickTrigger playerChoiceClickTrigger;
     private bool startFlag;
-    private byte npcNo,phaseNo,clickNo;
+    private byte phaseNo,clickNo;
     private string[] npcSentences,playerSentences;
     private string response;
     private ConversationTree ct;
@@ -35,11 +36,13 @@ class TextRenderer:MonoBehaviour{
         StartCoroutine(RenderText(response.ElementAt(index)));
     }
     private void Start() {
-        //npcNo=FindObjectOfType<CurrentNpcHolder>().npcNumber;
+        npc=FindObjectOfType<CurrentNpcHolder>().npc;
+        playerChoiceClickTrigger=FindObjectOfType<PlayerChoiceClickTrigger>();
         PhaseOneContainer npcInfo=GetNpcInfo<PhaseOneContainer>(); //Checking with phase numbers
-        npcSentences=npcInfo.phaseOne[npcNo].nDialogs;
-        playerSentences=npcInfo.phaseOne[npcNo].pDialogs;
-        ct=new ConversationTree(npcInfo.phaseOne[npcNo].tree);
+        npcSentences=npcInfo.phaseOne[npc.npcNumber].nDialogs;
+        playerSentences=npcInfo.phaseOne[npc.npcNumber].pDialogs;
+        ct=new ConversationTree(npcInfo.phaseOne[npc.npcNumber].tree);
+        ct.index=-1;
         root=ct.GetRoot();
     }
     private void Update() {
@@ -53,21 +56,23 @@ class TextRenderer:MonoBehaviour{
                 StartCoroutine(RenderText(response.ElementAt(index)));
             }   
             else{
-                if(FindObjectOfType<PlayerChoiceClickTrigger>().firstChoice==true) {
+                if(playerChoiceClickTrigger.firstChoice==true) {
                     startFlag=false;
                     root=root.left;
-                    FindObjectOfType<PlayerChoiceClickTrigger>().firstChoice=false;
-                    FindObjectOfType<PlayerChoiceClickTrigger>().secondChoice=false;
+                    playerChoiceClickTrigger.firstChoice=false;
+                    playerChoiceClickTrigger.secondChoice=false;
                 }
-                else if(FindObjectOfType<PlayerChoiceClickTrigger>().secondChoice==true) {
+                else if(playerChoiceClickTrigger.secondChoice==true) {
                     startFlag=false;
                     root=root.right;
-                    FindObjectOfType<PlayerChoiceClickTrigger>().firstChoice=false;
-                    FindObjectOfType<PlayerChoiceClickTrigger>().secondChoice=false;
+                    playerChoiceClickTrigger.firstChoice=false;
+                    playerChoiceClickTrigger.secondChoice=false;
                 }
             }
         }
         catch(Exception e){
+            index=0;
+            npc.canTalk=false;  //This change should be done to the json file         
             SceneLoader.LoadScene(SceneLoader.Scenes.GameScene);
         }
     }

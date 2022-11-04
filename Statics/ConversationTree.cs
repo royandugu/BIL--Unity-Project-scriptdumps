@@ -1,8 +1,7 @@
-using UnityEngine;
 public class ConversationTree{
     public int[] tree;
     private string response;
-    public static int index=-1;
+    public int index=-1;
     public ConversationTree(int[] tree){
         this.tree=tree;
     }
