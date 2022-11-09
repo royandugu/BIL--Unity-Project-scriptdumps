@@ -10,6 +10,7 @@ class RadialTrigger : MonoBehaviour {
     private PlayerController player;
     private Transform playerTransform;
     private float xCord1,yCord1;
+    public float distanceSquare;
     private void Start() {
         player=GameObject.FindObjectOfType<PlayerController>();
         playerTransform=player.transform;
