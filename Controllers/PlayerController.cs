@@ -7,7 +7,9 @@ public class PlayerController : MonoBehaviour
     private string animationState;
     private float speed=6,xPressValue,yPressValue;
     public byte turnDir=2,phaseValue=1;
-    private bool hasCollided=false,isMovingLeft,isMovingRight,isMovingDown,isMovingUp; 
+    private bool hasCollided=false;
+
+    //Unity built in functions
     private void Awake() {
         playerSprite=GetComponent<SpriteRenderer>();    
         animController=GetComponent<Animator>();
@@ -16,53 +18,43 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        xPressValue=Input.GetAxisRaw("Horizontal");
-        yPressValue=Input.GetAxisRaw("Vertical");
- 
-        if(xPressValue==1) ChangeMoveFlags(false,true,false,false);
-        if(xPressValue==-1) ChangeMoveFlags(true,false,false,false);
-        if(yPressValue==1) ChangeMoveFlags(false,false,true,false);
-        if(yPressValue==-1) ChangeMoveFlags(false,false,false,true);
-        
         if(hasCollided){
-            if(turnDir==2){
-                if(playerSprite.flipX==true){
-                    ChooseAnimationState("idleX");
-                    playerSprite.flipX=true;
-                    if(isMovingRight) FalsenCollideAnimateAndMove();
-                }
-                else{
-                    ChooseAnimationState("idleX");
-                    if(isMovingLeft) FalsenCollideAnimateAndMove();
-                }
-            }
-            else if(turnDir==1){
-                ChooseAnimationState("idleYNeg");
-                if(isMovingDown) FalsenCollideAnimateAndMove();
-            }
-            else{
-                ChooseAnimationState("idleYPos");
-                if(isMovingUp) FalsenCollideAnimateAndMove();
-            }
+            xPressValue=0;
+            yPressValue=0;
         }
         else{
+            GetUserInputs();
             AnimatePlayer();
             MovePlayer();
         }
+        
     }
-    public void ChangeMoveFlags(bool isMovingLeft, bool isMovingRight, bool isMovingUp, bool isMovingDown){
-        this.isMovingLeft=isMovingLeft;
-        this.isMovingRight=isMovingRight;
-        this.isMovingUp=isMovingUp;
-        this.isMovingDown=isMovingDown;
+    private void OnCollisionEnter2D(Collision2D other) {
+        hasCollided=true;
     }
-    public void FalsenCollideAnimateAndMove(){
-        hasCollided=false;
-        AnimatePlayer();
-        MovePlayer();
+    private void OnCollisionStay2D(Collision2D other) {
+        GetUserInputs();
+        if(turnDir==0){
+            if(yPressValue!=-1) hasCollided=false; 
+        }
+        else if(turnDir==1){
+            if(yPressValue!=1) hasCollided=false;
+        }
+        else{
+            if(playerSprite.flipX){
+                if(xPressValue!=-1) hasCollided=false;
+            }
+            else{
+                if(xPressValue!=1) hasCollided=false;
+            }
+        }
     }
-    private void OnTriggerEnter2D(Collider2D other) {
-        if(other.gameObject.CompareTag("Collider")) hasCollided=true;    
+    //User-defined
+    public void GetUserInputs(){
+        xPressValue=Input.GetAxisRaw("Horizontal");
+        yPressValue=Input.GetAxisRaw("Vertical");
+        if(xPressValue!=0)yPressValue=0;
+        if(yPressValue!=0)xPressValue=0;
     }
     public void ChooseAnimationState(string newState){
         if(animationState==newState) return;

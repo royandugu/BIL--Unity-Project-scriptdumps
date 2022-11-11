@@ -16,8 +16,7 @@ class RadialTrigger : MonoBehaviour {
         playerTransform=player.transform;
         uiController=FindObjectOfType<UIControllers>();
         currentNpcHolder=FindObjectOfType<CurrentNpcHolder>();
-        if(currentNpcHolder.npc==null || currentNpcHolder.npc.npcNumber!=npc.npcNumber) npc=new Npc(canTalk);
-        else npc=currentNpcHolder.npc;
+        npc=new Npc(canTalk);
     }
     private void Update() {
         xCord1=playerTransform.position.x;
