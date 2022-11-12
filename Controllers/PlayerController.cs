@@ -5,29 +5,33 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer playerSprite;
     private Animator animController;
     private string animationState;
+    private AnimationController aController;
     private float speed=6,xPressValue,yPressValue;
     public byte turnDir=2,phaseValue=1;
     private bool hasCollided=false;
 
-    //Unity built in functions
+
     private void Awake() {
         playerSprite=GetComponent<SpriteRenderer>();    
         animController=GetComponent<Animator>();
+        aController=new AnimationController("idleX");
+        
+        animController.speed=0.5f;
+        
         if(BasicGameDetails.isOld){
-            string jsonString=Resources.Load<TextAsset>("JsonFiles/GameInfo").text;
+            string jsonString=Resources.Load<TextAsset>("GameInfo").text;
             SaveFormat sf=JsonUtility.FromJson<SaveFormat>(jsonString);
             Player.xCord=sf.PlayerInfo.xCord;
             Player.yCord=sf.PlayerInfo.yCord;
             Player.mentalHealth=sf.PlayerInfo.mentalHealth;
             Player.noOfConv=sf.PlayerInfo.noOfConv;
         }
-        else{
+        else if(!BasicGameDetails.isTempOld){
             Player.xCord=0;
             Player.yCord=0;
             Player.mentalHealth=100;
             Player.noOfConv=0;
         }
-        animController.speed=0.5f;
         transform.position=new Vector3(Player.xCord,Player.yCord,0);
     }
     private void Update()
@@ -70,13 +74,6 @@ public class PlayerController : MonoBehaviour
         if(xPressValue!=0)yPressValue=0;
         if(yPressValue!=0)xPressValue=0;
     }
-    public void ChooseAnimationState(string newState){
-        if(animationState==newState) return;
-        else {
-            animController.Play(newState);
-        }
-        animationState=newState;    
-    }
     public void FlipPlayer(bool condition){
         if(condition){
             if(xPressValue<0) playerSprite.flipX=true;
@@ -86,29 +83,29 @@ public class PlayerController : MonoBehaviour
     }
     public void AnimatePlayer(){
         if(xPressValue==0 && yPressValue==0){
-            if(turnDir==0) ChooseAnimationState("idleYPos");
-            else if(turnDir==1) ChooseAnimationState("idleYNeg");
-            else if(turnDir==2) ChooseAnimationState("idleX");
+            if(turnDir==0) aController.ChooseAnimationState(animController,"idleYPos");
+            else if(turnDir==1) aController.ChooseAnimationState(animController,"idleYNeg");
+            else if(turnDir==2) aController.ChooseAnimationState(animController,"idleX");
         } 
         else{
             if(xPressValue!=0 && yPressValue!=0){
                 turnDir=2;
                 FlipPlayer(true);
-                ChooseAnimationState("walkX");    
+                aController.ChooseAnimationState(animController,"walkX");    
             }
             else{
                 if(yPressValue>0){
                     turnDir=1;
-                    ChooseAnimationState("walkYNeg");
+                    aController.ChooseAnimationState(animController,"walkYNeg");
                 }
                 if(yPressValue<0){
                     turnDir=0;
-                    ChooseAnimationState("walkYPos");
+                    aController.ChooseAnimationState(animController,"walkYPos");
                 }
                 if(yPressValue==0){
                     turnDir=2;
                     FlipPlayer(true);
-                    ChooseAnimationState("walkX");
+                    aController.ChooseAnimationState(animController,"walkX");
                 }
             }
         }

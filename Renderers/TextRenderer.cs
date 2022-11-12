@@ -71,8 +71,9 @@ class TextRenderer:MonoBehaviour{
         }
         catch(Exception e){
             index=0;
-            npc.canTalk=false;  //This change should be done to the json file    
+            npc.canTalk=false;
             Player.noOfConv++;     
+            BasicGameDetails.isTempOld=true;
             SceneLoader.LoadScene(SceneLoader.Scenes.GameScene);
         }
     }
