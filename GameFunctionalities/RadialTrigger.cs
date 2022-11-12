@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 class RadialTrigger : MonoBehaviour {
     [SerializeField]
@@ -16,7 +17,14 @@ class RadialTrigger : MonoBehaviour {
         playerTransform=player.transform;
         uiController=FindObjectOfType<UIControllers>();
         currentNpcHolder=FindObjectOfType<CurrentNpcHolder>();
-        npc=new Npc(canTalk);
+        try{
+            npc=currentNpcHolder.npc;
+            npc.npcNumber=npcNumber;
+        }
+        catch(Exception e){
+            npc=new Npc(canTalk);
+            npc.npcNumber=npcNumber;
+        }
     }
     private void Update() {
         xCord1=playerTransform.position.x;

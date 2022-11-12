@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Collections;
-using System.IO;
 using UnityEngine;
 using TMPro;
 class TextRenderer:MonoBehaviour{
@@ -17,7 +16,7 @@ class TextRenderer:MonoBehaviour{
     private int index=0,responseLength;
     Node root;
     public Phase GetNpcInfo<Phase>(){
-        string jsonString=File.ReadAllText("Assets/Scripts/Statics/CharacterConversationScripts/lightLineMonologue.json");
+        string jsonString=Resources.Load<TextAsset>("JsonFiles/CharacterConversationScripts/lightLineMonologue").text;
         Phase npcInfo=JsonUtility.FromJson<Phase>(jsonString);
         return npcInfo;
     }
@@ -72,7 +71,8 @@ class TextRenderer:MonoBehaviour{
         }
         catch(Exception e){
             index=0;
-            npc.canTalk=false;  //This change should be done to the json file         
+            npc.canTalk=false;  //This change should be done to the json file    
+            Player.noOfConv++;     
             SceneLoader.LoadScene(SceneLoader.Scenes.GameScene);
         }
     }

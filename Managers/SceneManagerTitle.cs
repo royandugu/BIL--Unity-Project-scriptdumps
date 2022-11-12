@@ -1,12 +1,17 @@
 using UnityEngine;
 
 public class SceneManagerTitle:MonoBehaviour{
-    public void LoadPlayerSelectScene(){
+    public void LoadMonologue(){
+        SceneLoader.LoadScene(SceneLoader.Scenes.StartMonologue);
+    }
+    public void LoadOldGame(){
+        BasicGameDetails.isOld=true;
         SceneLoader.LoadScene(SceneLoader.Scenes.GameScene);
     }
-    public  void LoadSavedGame(){
-        SceneLoader.LoadScene(SceneLoader.Scenes.GameScene);
-    }
+    public void LoadNewGame(){
+        BasicGameDetails.isOld=false;
+        SceneLoader.LoadScene(SceneLoader.Scenes.GameScene); 
+    } 
     public void LoadSettings(){
         SceneLoader.LoadScene(SceneLoader.Scenes.Settings);
     }

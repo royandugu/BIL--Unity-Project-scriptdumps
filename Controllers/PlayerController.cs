@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using static GameSaver;
 public class PlayerController : MonoBehaviour
 {
     private SpriteRenderer playerSprite;
@@ -13,6 +13,20 @@ public class PlayerController : MonoBehaviour
     private void Awake() {
         playerSprite=GetComponent<SpriteRenderer>();    
         animController=GetComponent<Animator>();
+        if(BasicGameDetails.isOld){
+            string jsonString=Resources.Load<TextAsset>("JsonFiles/GameInfo").text;
+            SaveFormat sf=JsonUtility.FromJson<SaveFormat>(jsonString);
+            Player.xCord=sf.PlayerInfo.xCord;
+            Player.yCord=sf.PlayerInfo.yCord;
+            Player.mentalHealth=sf.PlayerInfo.mentalHealth;
+            Player.noOfConv=sf.PlayerInfo.noOfConv;
+        }
+        else{
+            Player.xCord=0;
+            Player.yCord=0;
+            Player.mentalHealth=100;
+            Player.noOfConv=0;
+        }
         animController.speed=0.5f;
         transform.position=new Vector3(Player.xCord,Player.yCord,0);
     }

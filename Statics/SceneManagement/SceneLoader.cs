@@ -6,7 +6,7 @@ public class SceneLoader
         GameScene,
         LoadGame,
         MainMenu,
-        PlayerSelectScene,
+        StartMonologue,
         Settings,
         ConversationScene
     }
