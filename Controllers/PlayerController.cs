@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
     private Animator animController;
     private string animationState;
     private AnimationController aController;
-    private float speed=6,xPressValue,yPressValue;
+    private float speed=4,xPressValue,yPressValue;
     public byte turnDir=2,phaseValue=1;
     private bool hasCollided=false;
 
@@ -19,14 +19,14 @@ public class PlayerController : MonoBehaviour
         animController.speed=0.5f;
         
         if(BasicGameDetails.isOld){
-            string jsonString=Resources.Load<TextAsset>("GameInfo").text;
+            string jsonString=System.IO.File.ReadAllText(Application.dataPath+"/JsonFiles/GameInfo");
             SaveFormat sf=JsonUtility.FromJson<SaveFormat>(jsonString);
             Player.xCord=sf.PlayerInfo.xCord;
             Player.yCord=sf.PlayerInfo.yCord;
             Player.mentalHealth=sf.PlayerInfo.mentalHealth;
             Player.noOfConv=sf.PlayerInfo.noOfConv;
         }
-        else if(!BasicGameDetails.isTempOld){
+        else if(!BasicGameDetails.isTempOld && !BasicGameDetails.isOld){
             Player.xCord=0;
             Player.yCord=0;
             Player.mentalHealth=100;

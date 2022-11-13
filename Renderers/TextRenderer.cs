@@ -7,18 +7,28 @@ class TextRenderer:MonoBehaviour{
     Npc npc;
     [SerializeField]
     private TMP_Text textMesh,optionOneTxt,optionTwoTxt;
+    [SerializeField]
+    private GameObject firstButton,secondButton;
     private PlayerChoiceClickTrigger playerChoiceClickTrigger;
+    private int[,] responseFlag;
     private bool startFlag;
     private byte phaseNo,clickNo;
     private string[] npcSentences,playerSentences;
     private string response;
     private ConversationTree ct;
-    private int index=0,responseLength;
+    private int index=0,responseLength,traverseTime=0;
     Node root;
     public Phase GetNpcInfo<Phase>(){
-        string jsonString=Resources.Load<TextAsset>("JsonFiles/CharacterConversationScripts/lightLineMonologue").text;
+        string jsonString=Resources.Load<TextAsset>("CharacterConversationScripts/lightLineMonologue").text;
         Phase npcInfo=JsonUtility.FromJson<Phase>(jsonString);
         return npcInfo;
+    }
+    public void EndSettings(){
+        index=0;
+        npc.canTalk=false;
+        Player.noOfConv++; 
+        BasicGameDetails.isTempOld=true;
+        SceneLoader.LoadScene(SceneLoader.Scenes.GameScene);
     }
     public IEnumerator RenderText(char letter){
         startFlag=true;
@@ -28,8 +38,20 @@ class TextRenderer:MonoBehaviour{
         if(index==responseLength) {
             index=0;
             yield return new WaitForSeconds(.3f); 
-            optionOneTxt.text=playerSentences[root.data+1];
-            optionTwoTxt.text=playerSentences[root.data+2];
+            try{
+                firstButton.SetActive(true);
+                optionOneTxt.text=playerSentences[root.left.data];
+            }
+            catch(Exception e){
+                firstButton.SetActive(false);
+            }
+            try{
+                secondButton.SetActive(true);
+                optionTwoTxt.text=playerSentences[root.right.data];
+            }
+            catch(Exception e){
+                secondButton.SetActive(false);
+            }
             yield break;
         }
         StartCoroutine(RenderText(response.ElementAt(index)));
@@ -40,6 +62,7 @@ class TextRenderer:MonoBehaviour{
         PhaseOneContainer npcInfo=GetNpcInfo<PhaseOneContainer>(); //Checking with phase numbers
         npcSentences=npcInfo.phaseOne[npc.npcNumber].nDialogs;
         playerSentences=npcInfo.phaseOne[npc.npcNumber].pDialogs;
+        responseFlag=ResponseFlagHolder.GetResponseFlag(npc.npcNumber);
         ct=new ConversationTree(npcInfo.phaseOne[npc.npcNumber].tree);
         ct.index=-1;
         root=ct.GetRoot();
@@ -50,7 +73,8 @@ class TextRenderer:MonoBehaviour{
                 textMesh.text=" ";
                 optionOneTxt.text=" ";
                 optionTwoTxt.text=" ";
-                response=npcSentences[root.data];
+                if(traverseTime!=0 && responseFlag[traverseTime,root.data]==0) EndSettings();
+                else response=npcSentences[responseFlag[traverseTime,root.data]];
                 responseLength=response.Length;           
                 StartCoroutine(RenderText(response.ElementAt(index)));
             }   
@@ -58,23 +82,21 @@ class TextRenderer:MonoBehaviour{
                 if(playerChoiceClickTrigger.firstChoice==true) {
                     startFlag=false;
                     root=root.left;
+                    traverseTime++;
                     playerChoiceClickTrigger.firstChoice=false;
                     playerChoiceClickTrigger.secondChoice=false;
                 }
                 else if(playerChoiceClickTrigger.secondChoice==true) {
                     startFlag=false;
                     root=root.right;
+                    traverseTime++;
                     playerChoiceClickTrigger.firstChoice=false;
                     playerChoiceClickTrigger.secondChoice=false;
                 }
             }
         }
         catch(Exception e){
-            index=0;
-            npc.canTalk=false;
-            Player.noOfConv++;     
-            BasicGameDetails.isTempOld=true;
-            SceneLoader.LoadScene(SceneLoader.Scenes.GameScene);
+            EndSettings();
         }
     }
 }

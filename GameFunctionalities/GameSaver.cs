@@ -18,7 +18,7 @@ public class GameSaver:MonoBehaviour{
     public void SaveGame(){
         SaveFormat sf=new SaveFormat();
         string data=JsonUtility.ToJson(sf);
-        System.IO.File.WriteAllText("Assets/Resources/JsonFiles/GameInfo.json",data);
+        System.IO.File.WriteAllText(Application.dataPath+"/jsonFiles/GameInfo",data);
     }
     
 }

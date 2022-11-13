@@ -10,6 +10,7 @@ public class SceneManagerTitle:MonoBehaviour{
     }
     public void LoadNewGame(){
         BasicGameDetails.isOld=false;
+        BasicGameDetails.isTempOld=false;
         SceneLoader.LoadScene(SceneLoader.Scenes.GameScene); 
     } 
     public void LoadSettings(){

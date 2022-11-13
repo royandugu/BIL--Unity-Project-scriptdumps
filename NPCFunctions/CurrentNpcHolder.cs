@@ -5,7 +5,7 @@ public class CurrentNpcHolder : MonoBehaviour {
         this.npc=npc;
     }
     private void Update() {
-        if(SceneLoader.GetCurrentScene()=="ConversationScene") DontDestroyOnLoad(this.gameObject);
+        if(SceneLoader.GetCurrentScene()=="ConversationScene" || SceneLoader.GetCurrentScene()=="GameScene") DontDestroyOnLoad(this.gameObject);
         else Destroy(this.gameObject);
     }
 }
