@@ -19,7 +19,8 @@ public class PlayerController : MonoBehaviour
         animController.speed=0.5f;
         
         if(BasicGameDetails.isOld){
-            string jsonString=System.IO.File.ReadAllText(Application.dataPath+"/JsonFiles/GameInfo");
+            string filePath = System.IO.Path.Combine(Application.streamingAssetsPath, "GameInfo");
+            string jsonString=System.IO.File.ReadAllText(filePath);
             SaveFormat sf=JsonUtility.FromJson<SaveFormat>(jsonString);
             Player.xCord=sf.PlayerInfo.xCord;
             Player.yCord=sf.PlayerInfo.yCord;
@@ -29,10 +30,11 @@ public class PlayerController : MonoBehaviour
         else if(!BasicGameDetails.isTempOld && !BasicGameDetails.isOld){
             Player.xCord=0;
             Player.yCord=0;
-            Player.mentalHealth=100;
+            Player.mentalHealth=50;
             Player.noOfConv=0;
         }
         transform.position=new Vector3(Player.xCord,Player.yCord,0);
+        Debug.Log(Player.mentalHealth);
     }
     private void Update()
     {

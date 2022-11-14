@@ -11,7 +11,7 @@ class TextRenderer:MonoBehaviour{
     private GameObject firstButton,secondButton;
     private PlayerChoiceClickTrigger playerChoiceClickTrigger;
     private int[,] responseFlag;
-    private bool startFlag;
+    private bool startFlag,onceChanged=false;
     private byte phaseNo,clickNo;
     private string[] npcSentences,playerSentences;
     private string response;
@@ -75,7 +75,19 @@ class TextRenderer:MonoBehaviour{
                 optionTwoTxt.text=" ";
                 if(traverseTime!=0 && responseFlag[traverseTime,root.data]==0) EndSettings();
                 else response=npcSentences[responseFlag[traverseTime,root.data]];
-                responseLength=response.Length;           
+                responseLength=response.Length;
+                if(traverseTime==1 && root.data==1) {
+                    if(!onceChanged){
+                        Player.ChangeMentalHealth(-10);
+                        onceChanged=true;
+                    }
+                }
+                else if(traverseTime==3 && root.data==3) {
+                    if(!onceChanged){
+                        Player.ChangeMentalHealth(10);
+                        onceChanged=true;
+                    }
+                }           
                 StartCoroutine(RenderText(response.ElementAt(index)));
             }   
             else{
