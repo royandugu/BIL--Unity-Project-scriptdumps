@@ -4,6 +4,7 @@ public class CameraController : MonoBehaviour
 {
     private Transform playerTransform;
     private Vector3 transPos;
+    //Unity built-in functions
     private void Awake(){
         playerTransform=GameObject.FindWithTag("Player").transform;    
     }
@@ -32,6 +33,7 @@ public class CameraController : MonoBehaviour
         transPos.z=-1;
         transform.position=transPos;
     }
+    //User defined functions
     public void YChecks(){
         if(playerTransform.position.y>=5.3) transPos.y=5.3f;
         else if(playerTransform.position.y<=-28) transPos.y=-28f;

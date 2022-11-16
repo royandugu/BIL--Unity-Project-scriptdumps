@@ -18,44 +18,7 @@ class TextRenderer:MonoBehaviour{
     private ConversationTree ct;
     private int index=0,responseLength,traverseTime=0;
     Node root;
-    public Phase GetNpcInfo<Phase>(){
-        string jsonString=Resources.Load<TextAsset>("CharacterConversationScripts/lightLineMonologue").text;
-        Phase npcInfo=JsonUtility.FromJson<Phase>(jsonString);
-        return npcInfo;
-    }
-    public void EndSettings(){
-        index=0;
-        npc.canTalk=false;
-        Player.noOfConv++; 
-        BasicGameDetails.isTempOld=true;
-        SceneLoader.LoadScene(SceneLoader.Scenes.GameScene);
-    }
-    public IEnumerator RenderText(char letter){
-        startFlag=true;
-        yield return new WaitForSeconds(.1f); 
-        textMesh.text+=letter;
-        index++;
-        if(index==responseLength) {
-            index=0;
-            yield return new WaitForSeconds(.3f); 
-            try{
-                firstButton.SetActive(true);
-                optionOneTxt.text=playerSentences[root.left.data];
-            }
-            catch(Exception e){
-                firstButton.SetActive(false);
-            }
-            try{
-                secondButton.SetActive(true);
-                optionTwoTxt.text=playerSentences[root.right.data];
-            }
-            catch(Exception e){
-                secondButton.SetActive(false);
-            }
-            yield break;
-        }
-        StartCoroutine(RenderText(response.ElementAt(index)));
-    }
+    //Unity built in functions
     private void Start() {
         npc=FindObjectOfType<CurrentNpcHolder>().npc;
         playerChoiceClickTrigger=FindObjectOfType<PlayerChoiceClickTrigger>();
@@ -110,5 +73,44 @@ class TextRenderer:MonoBehaviour{
         catch(Exception e){
             EndSettings();
         }
+    }
+    //User defined functions
+    public Phase GetNpcInfo<Phase>(){
+        string jsonString=Resources.Load<TextAsset>("CharacterConversationScripts/lightLineMonologue").text;
+        Phase npcInfo=JsonUtility.FromJson<Phase>(jsonString);
+        return npcInfo;
+    }
+    public void EndSettings(){
+        index=0;
+        npc.canTalk=false;
+        Player.noOfConv++; 
+        BasicGameDetails.isTempOld=true;
+        SceneLoader.LoadScene(SceneLoader.Scenes.GameScene);
+    }
+    public IEnumerator RenderText(char letter){
+        startFlag=true;
+        yield return new WaitForSeconds(.1f); 
+        textMesh.text+=letter;
+        index++;
+        if(index==responseLength) {
+            index=0;
+            yield return new WaitForSeconds(.3f); 
+            try{
+                firstButton.SetActive(true);
+                optionOneTxt.text=playerSentences[root.left.data];
+            }
+            catch(Exception e){
+                firstButton.SetActive(false);
+            }
+            try{
+                secondButton.SetActive(true);
+                optionTwoTxt.text=playerSentences[root.right.data];
+            }
+            catch(Exception e){
+                secondButton.SetActive(false);
+            }
+            yield break;
+        }
+        StartCoroutine(RenderText(response.ElementAt(index)));
     }
 }

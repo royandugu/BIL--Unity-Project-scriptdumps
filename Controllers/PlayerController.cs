@@ -10,8 +10,8 @@ public class PlayerController : MonoBehaviour
     public byte turnDir=2,phaseValue=1;
     private bool hasCollided=false;
 
-
-    private void Awake() {
+    //Unity built in functions
+     private void Awake() {
         playerSprite=GetComponent<SpriteRenderer>();    
         animController=GetComponent<Animator>();
         aController=new AnimationController("idleX");

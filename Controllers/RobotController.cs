@@ -11,12 +11,7 @@ public class RobotController : MonoBehaviour {
     private string initialPosName;
     private AnimationController aController;
     private Animator animator;
-    public void IncrementPosition(Vector3 value){
-        transform.position+=value*Time.deltaTime*3;
-    }
-    public void DecrementPosition(Vector3 value){
-        transform.position-=value*Time.deltaTime*3;
-    }
+    //Unity built in functions
     private void Start() {
         animator=GetComponent<Animator>();
         aController=new AnimationController(initialPosName);
@@ -49,5 +44,12 @@ public class RobotController : MonoBehaviour {
                 IncrementPosition(new Vector3(0,1,0));
             }
         }
-    }    
+    }
+    //User defined functions 
+   public void IncrementPosition(Vector3 value){
+        transform.position+=value*Time.deltaTime*3;
+    }
+    public void DecrementPosition(Vector3 value){
+        transform.position-=value*Time.deltaTime*3;
+    }   
 }
