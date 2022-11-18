@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     private string animationState;
     private AnimationController aController;
     private float speed=4,xPressValue,yPressValue;
-    public byte turnDir=2,phaseValue=1;
+    public byte turnDir=2,phaseValue=1,collisionTurnDir=2;
     private bool hasCollided=false;
 
     //Unity built in functions
@@ -51,23 +51,44 @@ public class PlayerController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D other) {
         hasCollided=true;
+        collisionTurnDir=turnDir;
     }
     private void OnCollisionStay2D(Collision2D other) {
         GetUserInputs();
-        if(turnDir==0){
-            if(yPressValue!=-1) hasCollided=false; 
+        if(collisionTurnDir==0){
+            if(yPressValue==-1){
+                hasCollided=true;
+                aController.ChooseAnimationState(animController,"idleYPos");
+            }
+            else hasCollided=false;
         }
-        else if(turnDir==1){
-            if(yPressValue!=1) hasCollided=false;
+        else if(collisionTurnDir==1){
+            if(yPressValue==1){
+                hasCollided=true;
+                aController.ChooseAnimationState(animController,"idleYNeg");
+            }
+            else hasCollided=false;
         }
         else{
             if(playerSprite.flipX){
-                if(xPressValue!=-1) hasCollided=false;
+                if(xPressValue==-1) {
+                    hasCollided=true;
+                    aController.ChooseAnimationState(animController,"idleX");
+                    playerSprite.flipX=true;
+                }
+                else hasCollided=false;
             }
             else{
-                if(xPressValue!=1) hasCollided=false;
+                if(xPressValue==1) {
+                    hasCollided=true;
+                    aController.ChooseAnimationState(animController,"idleX");
+                }
+                else hasCollided=false;
             }
         }
+    }
+    private void OnCollisionExit2D(Collision2D other) {
+        hasCollided=false;
     }
     //User-defined
     public void GetUserInputs(){
