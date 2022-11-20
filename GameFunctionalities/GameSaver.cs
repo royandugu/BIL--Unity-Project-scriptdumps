@@ -3,12 +3,13 @@ using UnityEngine;
 public class GameSaver:MonoBehaviour{
     [System.Serializable]
     public class PlayerInfo{
-        public float xCord,yCord,mentalHealth,noOfConv;
+        public float xCord,yCord,mentalHealth,pSConv,sSConv;
         public PlayerInfo(){
             this.xCord=Player.xCord;
             this.yCord=Player.yCord;
             this.mentalHealth=Player.mentalHealth;
-            this.noOfConv=Player.noOfConv;
+            this.pSConv=Player.pSConv;
+            this.sSConv=Player.sSConv;
         }
     }
     [System.Serializable]

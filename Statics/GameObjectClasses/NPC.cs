@@ -1,8 +1,21 @@
 public class Npc{
-    public bool canTalk;
+    public bool canTalk,isPrimary;
+    public float[] talkPoints;
     public byte npcNumber;
-    public int talkTime=0;
-    public Npc(bool value){
-        this.canTalk=value;
+    private float comparator;
+    public Npc(bool isPrimary,float[] talkPoints){
+        this.isPrimary=isPrimary;
+        this.talkPoints=talkPoints;
+    }
+    public void DecideCanTalk(){
+        if(isPrimary) comparator=Player.pSConv;
+        else comparator=Player.sSConv;
+        foreach(float number in talkPoints){
+            if(number==comparator){
+                canTalk=true;
+                return;
+            }  
+            else canTalk=false;      
+        }
     }
 }

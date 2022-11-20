@@ -38,19 +38,7 @@ class TextRenderer:MonoBehaviour{
                 optionTwoTxt.text=" ";
                 if(traverseTime!=0 && responseFlag[traverseTime,root.data]==0) EndSettings();
                 else response=npcSentences[responseFlag[traverseTime,root.data]];
-                responseLength=response.Length;
-                if(traverseTime==1 && root.data==1) {
-                    if(!onceChanged){
-                        Player.ChangeMentalHealth(-10);
-                        onceChanged=true;
-                    }
-                }
-                else if(traverseTime==3 && root.data==3) {
-                    if(!onceChanged){
-                        Player.ChangeMentalHealth(10);
-                        onceChanged=true;
-                    }
-                }           
+                responseLength=response.Length;          
                 StartCoroutine(RenderText(response.ElementAt(index)));
             }   
             else{
@@ -70,7 +58,7 @@ class TextRenderer:MonoBehaviour{
                 }
             }
         }
-        catch(Exception e){
+        catch(Exception){
             EndSettings();
         }
     }
@@ -82,12 +70,14 @@ class TextRenderer:MonoBehaviour{
     }
     public void EndSettings(){
         index=0;
-        npc.canTalk=false;
-        Player.noOfConv++; 
+        if(npc.isPrimary) Player.pSConv++;
+        else Player.sSConv++; 
         BasicGameDetails.isTempOld=true;
         SceneLoader.LoadScene(SceneLoader.Scenes.GameScene);
     }
     public IEnumerator RenderText(char letter){
+        if(firstButton.activeSelf) firstButton.SetActive(false);
+        if(secondButton.activeSelf) secondButton.SetActive(false);
         startFlag=true;
         yield return new WaitForSeconds(.1f); 
         textMesh.text+=letter;
@@ -99,14 +89,14 @@ class TextRenderer:MonoBehaviour{
                 firstButton.SetActive(true);
                 optionOneTxt.text=playerSentences[root.left.data];
             }
-            catch(Exception e){
+            catch(Exception){
                 firstButton.SetActive(false);
             }
             try{
                 secondButton.SetActive(true);
                 optionTwoTxt.text=playerSentences[root.right.data];
             }
-            catch(Exception e){
+            catch(Exception){
                 secondButton.SetActive(false);
             }
             yield break;

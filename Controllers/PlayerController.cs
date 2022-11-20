@@ -25,13 +25,15 @@ public class PlayerController : MonoBehaviour
             Player.xCord=sf.PlayerInfo.xCord;
             Player.yCord=sf.PlayerInfo.yCord;
             Player.mentalHealth=sf.PlayerInfo.mentalHealth;
-            Player.noOfConv=sf.PlayerInfo.noOfConv;
+            Player.pSConv=sf.PlayerInfo.pSConv;
+            Player.sSConv=sf.PlayerInfo.sSConv;
         }
         else if(!BasicGameDetails.isTempOld && !BasicGameDetails.isOld){
             Player.xCord=0;
             Player.yCord=0;
             Player.mentalHealth=50;
-            Player.noOfConv=0;
+            Player.pSConv=0;
+            Player.sSConv=0;
         }
         transform.position=new Vector3(Player.xCord,Player.yCord,0);
         Debug.Log(Player.mentalHealth);

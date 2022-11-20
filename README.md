@@ -11,4 +11,5 @@ Scripts that are not inherited from MonoBehaviour <br>
 
 
 ## To-Do<br>
-1. Move further in the story, for now just put cubes and squares as NPCS 
+1. Use dynamic class creation to read the values from the JSON so as to read only one at a time
+2. Store NPCs details (as they will act differently as the evil we become)

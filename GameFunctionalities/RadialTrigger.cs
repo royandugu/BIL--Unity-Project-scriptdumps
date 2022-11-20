@@ -2,16 +2,16 @@ using System;
 using UnityEngine;
 class RadialTrigger : MonoBehaviour {
     [SerializeField]
-    private bool canTalk;
+    private bool isPrimary;
+    [SerializeField]
+    private float[] talkPoints;
     Npc npc;
     private UIControllers uiController;
     private CurrentNpcHolder currentNpcHolder;
-    public byte npcNumber;
-    public byte phaseNumber;
+    private byte phaseNumber,npcNumber;
     private PlayerController player;
     private Transform playerTransform;
-    private float xCord1,yCord1;
-    public float distanceSquare;
+    private float xCord1,yCord1,distanceSquare;
     private void Start() {
         player=GameObject.FindObjectOfType<PlayerController>();
         playerTransform=player.transform;
@@ -20,10 +20,12 @@ class RadialTrigger : MonoBehaviour {
         try{
             npc=currentNpcHolder.npc;
             npc.npcNumber=npcNumber;
+            npc.DecideCanTalk();
         }
-        catch(Exception e){
-            npc=new Npc(canTalk);
+        catch(Exception){
+            npc=new Npc(isPrimary,talkPoints);
             npc.npcNumber=npcNumber;
+            npc.DecideCanTalk();
         }
     }
     private void Update() {
