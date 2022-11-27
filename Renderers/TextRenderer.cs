@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Collections;
-using System.Dynamic;
 using UnityEngine;
 using TMPro;
 class TextRenderer:MonoBehaviour{
@@ -12,7 +11,7 @@ class TextRenderer:MonoBehaviour{
     private GameObject firstButton,secondButton;
     private PlayerChoiceClickTrigger playerChoiceClickTrigger;
     private int[,] responseFlag;
-    private bool startFlag,onceChanged=false;
+    private bool startFlag;
     private byte phaseNo,clickNo;
     private string[] npcSentences,playerSentences;
     private string response;
@@ -23,13 +22,15 @@ class TextRenderer:MonoBehaviour{
     private void Start() {
         npc=FindObjectOfType<CurrentNpcHolder>().npc;
         playerChoiceClickTrigger=FindObjectOfType<PlayerChoiceClickTrigger>();
-        PhaseOneContainer npcInfo=GetNpcInfo<PhaseOneContainer>(); //Checking with phase numbers
-        npcSentences=npcInfo.phaseOne[npc.npcNumber].nDialogs;
-        playerSentences=npcInfo.phaseOne[npc.npcNumber].pDialogs;
-        responseFlag=ResponseFlagHolder.GetResponseFlag(npc.npcNumber);
-        ct=new ConversationTree(npcInfo.phaseOne[npc.npcNumber].tree);
-        ct.index=-1;
-        root=ct.GetRoot();
+        if(npc.npcNumber==0){
+            PuffinContainer npcInfo=GetPuffinInfo<PuffinContainer>(); //Checking with phase numbers
+            npcSentences=npcInfo.Puffin.nDialogs;
+            playerSentences=npcInfo.Puffin.pDialogs;
+            responseFlag=ResponseFlagHolder.GetResponseFlag(npc.npcNumber);
+            ct=new ConversationTree(npcInfo.Puffin.tree);
+            ct.index=-1;
+            root=ct.GetRoot();
+        }
     }
     private void Update() {
         try{
@@ -64,9 +65,9 @@ class TextRenderer:MonoBehaviour{
         }
     }
     //User defined functions
-    public Phase GetNpcInfo<Phase>(){
-        string jsonString=Resources.Load<TextAsset>("CharacterConversationScripts/lightLineMonologue").text;
-        Phase npcInfo=JsonUtility.FromJson<Phase>(jsonString);
+    public PuffinContainer GetPuffinInfo<PuffinContainer>(){
+        string jsonString=Resources.Load<TextAsset>("CharacterConversationScripts/neutralMonologue").text;
+        PuffinContainer npcInfo=JsonUtility.FromJson<PuffinContainer>(jsonString);
         return npcInfo;
     }
     public void EndSettings(){

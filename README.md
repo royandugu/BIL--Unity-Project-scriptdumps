@@ -11,5 +11,5 @@ Scripts that are not inherited from MonoBehaviour <br>
 
 
 ## To-Do<br>
-1. Use dynamic class creation to read the values from the JSON so as to read only one at a time
+1. Fetching one values at a time has been fixed. All it is left is to fix some code reusability. Hint : Use Inheritance?? 
 2. Store NPCs details (as they will act differently as the evil we become)
