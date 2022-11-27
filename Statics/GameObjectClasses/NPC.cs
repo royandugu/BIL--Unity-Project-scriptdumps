@@ -1,4 +1,7 @@
+using System.Dynamic;
+
 public class Npc{
+    public dynamic fetcherObj;
     public bool canTalk,isPrimary;
     public float[] talkPoints;
     public byte npcNumber;

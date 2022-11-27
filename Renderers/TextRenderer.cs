@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections;
+using System.Dynamic;
 using UnityEngine;
 using TMPro;
 class TextRenderer:MonoBehaviour{
