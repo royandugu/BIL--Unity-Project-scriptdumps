@@ -11,5 +11,5 @@ Scripts that are not inherited from MonoBehaviour <br>
 
 
 ## To-Do<br>
-1. Fetching one values at a time has been fixed. All it is left is to fix some code reusability. Hint : Use Inheritance?? 
-2. Store NPCs details (as they will act differently as the evil we become)
+1. Store NPCs details (as they will act differently as the evil we become)
+2. Fix response flag as per the npc number (prevention of too many if else cases)

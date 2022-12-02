@@ -1,12 +1,9 @@
-using System;
 using System.Linq;
-using System.Collections;
 using UnityEngine;
-using TMPro;
 class TextRenderer:MonoBehaviour{
     Npc npc;
     [SerializeField]
-    private TMP_Text textMesh,optionOneTxt,optionTwoTxt;
+    private TMPro.TMP_Text textMesh,optionOneTxt,optionTwoTxt;
     [SerializeField]
     private GameObject firstButton,secondButton;
     private PlayerChoiceClickTrigger playerChoiceClickTrigger;
@@ -60,7 +57,7 @@ class TextRenderer:MonoBehaviour{
                 }
             }
         }
-        catch(Exception){
+        catch(System.Exception){
             EndSettings();
         }
     }
@@ -77,7 +74,7 @@ class TextRenderer:MonoBehaviour{
         BasicGameDetails.isTempOld=true;
         SceneLoader.LoadScene(SceneLoader.Scenes.GameScene);
     }
-    public IEnumerator RenderText(char letter){
+    public System.Collections.IEnumerator RenderText(char letter){
         if(firstButton.activeSelf) firstButton.SetActive(false);
         if(secondButton.activeSelf) secondButton.SetActive(false);
         startFlag=true;
@@ -91,14 +88,14 @@ class TextRenderer:MonoBehaviour{
                 firstButton.SetActive(true);
                 optionOneTxt.text=playerSentences[root.left.data];
             }
-            catch(Exception){
+            catch(System.Exception){
                 firstButton.SetActive(false);
             }
             try{
                 secondButton.SetActive(true);
                 optionTwoTxt.text=playerSentences[root.right.data];
             }
-            catch(Exception){
+            catch(System.Exception){
                 secondButton.SetActive(false);
             }
             yield break;

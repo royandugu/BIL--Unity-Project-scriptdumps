@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 class RadialTrigger : MonoBehaviour {
     [SerializeField]
@@ -22,7 +21,7 @@ class RadialTrigger : MonoBehaviour {
             npc.npcNumber=npcNumber;
             npc.DecideCanTalk();
         }
-        catch(Exception){
+        catch(System.Exception){
             npc=new Npc(isPrimary,talkPoints);
             npc.npcNumber=npcNumber;
             npc.DecideCanTalk();

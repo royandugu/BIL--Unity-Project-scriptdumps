@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using static GameSaver;
 public class PlayerController : MonoBehaviour
 {
     private SpriteRenderer playerSprite;
@@ -21,7 +20,7 @@ public class PlayerController : MonoBehaviour
         if(BasicGameDetails.isOld){
             string filePath = System.IO.Path.Combine(Application.streamingAssetsPath, "GameInfo");
             string jsonString=System.IO.File.ReadAllText(filePath);
-            SaveFormat sf=JsonUtility.FromJson<SaveFormat>(jsonString);
+            GameSaver.SaveFormat sf=JsonUtility.FromJson<GameSaver.SaveFormat>(jsonString);
             Player.xCord=sf.PlayerInfo.xCord;
             Player.yCord=sf.PlayerInfo.yCord;
             Player.mentalHealth=sf.PlayerInfo.mentalHealth;
