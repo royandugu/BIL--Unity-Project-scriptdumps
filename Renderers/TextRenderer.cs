@@ -64,7 +64,6 @@ class TextRenderer:MonoBehaviour{
     //User defined functions
     public PuffinContainer GetPuffinInfo<PuffinContainer>(){
         string jsonString=Resources.Load<TextAsset>("CharacterConversationScripts/neutralMonologue").text;
-        Debug.Log(jsonString);
         PuffinContainer npcInfo=JsonUtility.FromJson<PuffinContainer>(jsonString);
         return npcInfo;
     }
