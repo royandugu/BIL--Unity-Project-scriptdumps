@@ -19,15 +19,13 @@ class TextRenderer:MonoBehaviour{
     private void Start() {
         npc=FindObjectOfType<CurrentNpcHolder>().npc;
         playerChoiceClickTrigger=FindObjectOfType<PlayerChoiceClickTrigger>();
-        if(npc.npcNumber==0){
-            PuffinContainer npcInfo=GetPuffinInfo<PuffinContainer>(); //Checking with phase numbers
-            npcSentences=npcInfo.Puffin.nDialogs;
-            playerSentences=npcInfo.Puffin.pDialogs;
-            responseFlag=ResponseFlagHolder.GetResponseFlag(npc.npcNumber);
-            ct=new ConversationTree(npcInfo.Puffin.tree);
-            ct.index=-1;
-            root=ct.GetRoot();
-        }
+        ConversationContainer conversationContainer=GetConversationInfo();
+        npcSentences=conversationContainer.phaseOne[npc.npcNumber].nDialogs;
+        playerSentences=conversationContainer.phaseOne[npc.npcNumber].pDialogs;
+        responseFlag=ResponseFlagHolder.GetResponseFlag(npc.npcNumber);
+        ct=new ConversationTree(conversationContainer.phaseOne[npc.npcNumber].tree);
+        ct.index=-1;
+        root=ct.GetRoot();
     }
     private void Update() {
         try{
@@ -62,10 +60,10 @@ class TextRenderer:MonoBehaviour{
         }
     }
     //User defined functions
-    public PuffinContainer GetPuffinInfo<PuffinContainer>(){
+    public ConversationContainer GetConversationInfo(){
         string jsonString=Resources.Load<TextAsset>("CharacterConversationScripts/neutralMonologue").text;
-        PuffinContainer npcInfo=JsonUtility.FromJson<PuffinContainer>(jsonString);
-        return npcInfo;
+        ConversationContainer cnvContainer=JsonUtility.FromJson<ConversationContainer>(jsonString);
+        return cnvContainer;
     }
     public void EndSettings(){
         index=0;

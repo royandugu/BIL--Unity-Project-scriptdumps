@@ -12,8 +12,8 @@ Scripts that are not inherited from MonoBehaviour <br>
 
 ## To-Do<br>
 
-1. Same JSON file for all NPCs and use of dynamic classes (reflection) to fetch the 
-    individual NPCs. How can we do it? By names.
-
-2. Store NPCs details (as they will act differently as the evil we become)
-3. Fix response flag as per the npc number (prevention of too many if else cases)
+1. Dynamically class kina create garne?? 
+    It's ok json bata fetch huda as a whole string naii fetch hunxa. No issue in that tara jaba deserialize
+    garxau, bhaye bhar ko sabai deserialize huna pugyo. Individually try handa dherai ota if else cases
+    So, the only left solution is to create a class dynamically. Agadi bata NPC ko naam, and then tyo naam bata fetch garne.    
+2. Fix response flag as per the npc number (prevention of too many if else cases)
