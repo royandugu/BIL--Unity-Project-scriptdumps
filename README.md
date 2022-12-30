@@ -18,4 +18,8 @@ Scripts that are not inherited from MonoBehaviour <br>
     So, the only left solution is to create a class dynamically. Agadi bata NPC ko naam, and then tyo naam bata fetch garne.
 
     A problem once again is that System.Reflection.Emit is not working on Unity. Therefore ExpandoObject ko help linu paryo, jun mah feri Assembly installations ko problems auna sakla. Secondly, we have System.Reflection realated solution.    
+
+    solution:
+    tried to use ExpandObject:- Issue:- Assets\Scripts\Statics\FetchClassFormats\ClassCreator.cs(6,9): error CS0656: Missing compiler required member 'Microsoft.CSharp.RuntimeBinder.CSharpArgumentInfo.Create'
+    
 2. Fix response flag as per the npc number (prevention of too many if else cases)
