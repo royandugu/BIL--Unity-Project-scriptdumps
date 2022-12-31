@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 class TextRenderer:MonoBehaviour{
     Npc npc;
@@ -19,12 +20,13 @@ class TextRenderer:MonoBehaviour{
     private void Start() {
         npc=FindObjectOfType<CurrentNpcHolder>().npc;
         playerChoiceClickTrigger=FindObjectOfType<PlayerChoiceClickTrigger>();
-        ConversationContainer conversationContainer=GetConversationInfo();
-        npcSentences=conversationContainer.phaseOne[npc.npcNumber].nDialogs;
-        playerSentences=conversationContainer.phaseOne[npc.npcNumber].pDialogs;
-        responseFlag=ResponseFlagHolder.GetResponseFlag(npc.npcNumber);
-        ct=new ConversationTree(conversationContainer.phaseOne[npc.npcNumber].tree);
-        ct.index=-1;
+        IDictionary<string,string> conversationContainer=GetConversationInfo();
+        // Debug.Log(conversationContainer);
+        // // npcSentences=conversationContainer.dialogs.nDialogs;
+        // playerSentences=conversationContainer.dialogs.pDialogs;
+        // responseFlag=ResponseFlagHolder.GetResponseFlag(npc.npcNumber);
+        // ct=new ConversationTree(conversationContainer.phaseOne[npc.npcNumber].tree);
+        // ct.index=-1;
         root=ct.GetRoot();
     }
     private void Update() {
@@ -60,10 +62,11 @@ class TextRenderer:MonoBehaviour{
         }
     }
     //User defined functions
-    public ConversationContainer GetConversationInfo(){
-        string jsonString=Resources.Load<TextAsset>("CharacterConversationScripts/neutralMonologue").text;
-        ConversationContainer cnvContainer=JsonUtility.FromJson<ConversationContainer>(jsonString);
-        return cnvContainer;
+    public IDictionary<string,string> GetConversationInfo(){
+        string jsonString=Resources.Load<TextAsset>("CharacterConversationScripts/test").text;
+        //IDictionary<string,object> parsed=SimpleJSON.JSON.Parse(jsonString);
+        //Debug.Log(parsed);
+        return new Dictionary<string,string>(); 
     }
     public void EndSettings(){
         index=0;
