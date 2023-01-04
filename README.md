@@ -23,3 +23,5 @@ Scripts that are not inherited from MonoBehaviour <br>
     tried to use ExpandObject:- Issue:- Assets\Scripts\Statics\FetchClassFormats\ClassCreator.cs(6,9): error CS0656: Missing compiler required member 'Microsoft.CSharp.RuntimeBinder.CSharpArgumentInfo.Create'
     
 2. Fix response flag as per the npc number (prevention of too many if else cases)
+
+3. How to access properties of the IDictionary

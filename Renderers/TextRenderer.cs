@@ -28,7 +28,7 @@ class TextRenderer:MonoBehaviour{
         // responseFlag=ResponseFlagHolder.GetResponseFlag(npc.npcNumber);
         // ct=new ConversationTree(conversationContainer.phaseOne[npc.npcNumber].tree);
         // ct.index=-1;
-        root=ct.GetRoot();
+        //root=ct.GetRoot();
     }
     private void Update() {
         try{
