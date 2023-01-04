@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
 class TextRenderer:MonoBehaviour{
     Npc npc;
     [SerializeField]
@@ -64,8 +65,9 @@ class TextRenderer:MonoBehaviour{
     //User defined functions
     public IDictionary<string,string> GetConversationInfo(){
         string jsonString=Resources.Load<TextAsset>("CharacterConversationScripts/test").text;
-        //IDictionary<string,object> parsed=SimpleJSON.JSON.Parse(jsonString);
-        //Debug.Log(parsed);
+        
+        IDictionary<string,object> parsed=JsonConvert.DeserializeObject<IDictionary<string,object>>(jsonString);
+        Debug.Log(parsed);
         return new Dictionary<string,string>(); 
     }
     public void EndSettings(){
