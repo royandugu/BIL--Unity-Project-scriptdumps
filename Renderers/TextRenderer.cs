@@ -21,7 +21,7 @@ class TextRenderer:MonoBehaviour{
     private void Start() {
         npc=FindObjectOfType<CurrentNpcHolder>().npc;
         playerChoiceClickTrigger=FindObjectOfType<PlayerChoiceClickTrigger>();
-        IDictionary<string,string> conversationContainer=GetConversationInfo();
+        object conversationContainer=GetConversationInfo();
         // Debug.Log(conversationContainer);
         // // npcSentences=conversationContainer.dialogs.nDialogs;
         // playerSentences=conversationContainer.dialogs.pDialogs;
@@ -63,12 +63,14 @@ class TextRenderer:MonoBehaviour{
         }
     }
     //User defined functions
-    public IDictionary<string,string> GetConversationInfo(){
-        string jsonString=Resources.Load<TextAsset>("CharacterConversationScripts/test").text;
-        
-        IDictionary<string,object> parsed=JsonConvert.DeserializeObject<IDictionary<string,object>>(jsonString);
-        Debug.Log(parsed);
-        return new Dictionary<string,string>(); 
+    public object GetConversationInfo(){
+        string jsonString=Resources.Load<TextAsset>("CharacterConversationScripts/new").text;
+        object value=new Dictionary<string,object>();
+        IDictionary<string,object> parsed=new Dictionary<string,object>();
+        parsed=JsonConvert.DeserializeObject<IDictionary<string,object>>(jsonString);
+        parsed.TryGetValue("Safin",out value);
+        Debug.Log(value); 
+        return value; 
     }
     public void EndSettings(){
         index=0;

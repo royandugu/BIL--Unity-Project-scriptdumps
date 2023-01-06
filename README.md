@@ -24,4 +24,4 @@ Scripts that are not inherited from MonoBehaviour <br>
     
 2. Fix response flag as per the npc number (prevention of too many if else cases)
 
-3. How to access properties of the IDictionary
+3. Swear this is the last time I am working on fetching. Let's just move on with building and then let's see when we get performance issues as we pile up our conversations.
