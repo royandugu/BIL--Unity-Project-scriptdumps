@@ -21,14 +21,13 @@ class TextRenderer:MonoBehaviour{
     private void Start() {
         npc=FindObjectOfType<CurrentNpcHolder>().npc;
         playerChoiceClickTrigger=FindObjectOfType<PlayerChoiceClickTrigger>();
-        object conversationContainer=GetConversationInfo();
-        // Debug.Log(conversationContainer);
-        // // npcSentences=conversationContainer.dialogs.nDialogs;
-        // playerSentences=conversationContainer.dialogs.pDialogs;
-        // responseFlag=ResponseFlagHolder.GetResponseFlag(npc.npcNumber);
-        // ct=new ConversationTree(conversationContainer.phaseOne[npc.npcNumber].tree);
-        // ct.index=-1;
-        //root=ct.GetRoot();
+        NpcInfo conversationContainer=GetConversationInfo();
+        npcSentences=conversationContainer.nDialogs;
+        playerSentences=conversationContainer.pDialogs;
+        responseFlag=ResponseFlagHolder.GetResponseFlag(npc.npcNumber);
+        ct=new ConversationTree(conversationContainer.tree);
+        ct.index=-1;
+        root=ct.GetRoot();
     }
     private void Update() {
         try{
@@ -63,13 +62,12 @@ class TextRenderer:MonoBehaviour{
         }
     }
     //User defined functions
-    public object GetConversationInfo(){
+    public NpcInfo GetConversationInfo(){
         string jsonString=Resources.Load<TextAsset>("CharacterConversationScripts/new").text;
-        object value=new Dictionary<string,object>();
-        IDictionary<string,object> parsed=new Dictionary<string,object>();
-        parsed=JsonConvert.DeserializeObject<IDictionary<string,object>>(jsonString);
+        NpcInfo value=new NpcInfo();
+        IDictionary<string,NpcInfo> parsed=new Dictionary<string,NpcInfo>();
+        parsed=JsonConvert.DeserializeObject<IDictionary<string,NpcInfo>>(jsonString);
         parsed.TryGetValue("Safin",out value);
-        Debug.Log(value); 
         return value; 
     }
     public void EndSettings(){
