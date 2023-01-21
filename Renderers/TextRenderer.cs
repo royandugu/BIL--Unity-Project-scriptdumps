@@ -63,10 +63,10 @@ class TextRenderer:MonoBehaviour{
     }
     //User defined functions
     public NpcInfo GetConversationInfo(){
-        string jsonString=Resources.Load<TextAsset>("CharacterConversationScripts/new").text;
+        string jsonString=Resources.Load<TextAsset>("CharacterConversationScripts/choiceConversations").text;
         NpcInfo value=new NpcInfo();
         IDictionary<string,NpcInfo> parsed=new Dictionary<string,NpcInfo>();
-        parsed=JsonConvert.DeserializeObject<IDictionary<string,NpcInfo>>(jsonString);
+        parsed=JsonConvert.DeserializeObject<IDictionary<string,NpcInfo>>(jsonString); //Yesle chain space massively line vayo tara function return vayepaxi memory release garne vayo
         parsed.TryGetValue("Safin",out value);
         return value; 
     }
@@ -77,6 +77,7 @@ class TextRenderer:MonoBehaviour{
         BasicGameDetails.isTempOld=true;
         SceneLoader.LoadScene(SceneLoader.Scenes.GameScene);
     }
+    //Make this function avaliable at the Monologues
     public System.Collections.IEnumerator RenderText(char letter){
         if(firstButton.activeSelf) firstButton.SetActive(false);
         if(secondButton.activeSelf) secondButton.SetActive(false);
