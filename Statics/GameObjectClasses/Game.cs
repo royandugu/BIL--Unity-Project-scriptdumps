@@ -1,3 +1,3 @@
 public static class Game{
-    public static bool playMonologue=false;
+    public static bool playMonologue=true;
 }
