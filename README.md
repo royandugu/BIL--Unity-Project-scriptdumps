@@ -14,7 +14,7 @@ Scripts that are not inherited from MonoBehaviour <br>
 
 1. Fix response flag as per the npc number (prevention of too many if else cases)
 
-
-
+2. Check ki eutai .anim le multiple scenes haru man multiple images haru ko laagi work garxa ki nai
+3. Fix the next upcoming monologue not working
 
 `Swear this is the last time I am working on fetching. Let's just move on with building and then let's see when we get performance issues as we pile up our conversations.`

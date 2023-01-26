@@ -8,20 +8,23 @@ public class MonologueRenderer:MonoBehaviour{
     private TMPro.TMP_Text monologueText;
     private string monologue;
     private int monologueLength,index=0;
-    private bool startFlag=false;
+    private bool hasNotStarted=true;
     //Unity Built ins
     private void Start() {
         //Yo location mah paxxi pani monologues haru auxa
-        if(Game.playMonologue){
-            monologue=GetMonologueInfo();
-            Debug.Log(monologue);
-            monologueLength=monologue.Length;
-            StartCoroutine(RenderMonologue(monologue.ElementAt(index)));
-
-            //Animate the fade
-        }
+        
+    }
+    private void Update() {
+        if(Game.resetMonologue) monologueText.text=" ";
+        if(Game.playMonologue && hasNotStarted) FetchAndPlay();
+        if(Game.playMonologue && hasNotStarted && Game.fadeEnd) FetchAndPlay();
     }
     //User defined functions
+    public void FetchAndPlay(){
+        monologue=GetMonologueInfo();
+        monologueLength=monologue.Length;
+        StartCoroutine(RenderMonologue(monologue.ElementAt(index)));
+    }
     public string GetMonologueInfo(){
         string jsonString=Resources.Load<TextAsset>("CharacterConversationScripts/monologues").text;
         MonologueInfo value=new MonologueInfo();
@@ -31,11 +34,16 @@ public class MonologueRenderer:MonoBehaviour{
         return value.initials[(int)Player.selfConv++];
     }
     public System.Collections.IEnumerator RenderMonologue(char letter){
-        startFlag=true;
+        hasNotStarted=false;
         yield return new WaitForSeconds(.1f); 
         monologueText.text+=letter;
         index++;
-        if(index==monologueLength) yield break;
+        if(index==monologueLength) {
+            Game.fadeStart=true;
+            hasNotStarted=true;
+            index=0;
+            yield break;
+        }
         StartCoroutine(RenderMonologue(monologue.ElementAt(index)));       
     }
 
