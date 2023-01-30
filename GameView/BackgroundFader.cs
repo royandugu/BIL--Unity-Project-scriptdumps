@@ -15,7 +15,6 @@ public class BackgroundFader : MonoBehaviour {
             aController.ChooseAnimationState(animController,fadeAnimationName);
             Game.fadeStart=false;
             Game.fadeIndex++;
-            Debug.Log("I am being called");
         }
     }
     //User defined

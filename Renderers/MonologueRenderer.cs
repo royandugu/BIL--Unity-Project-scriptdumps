@@ -8,7 +8,7 @@ public class MonologueRenderer:MonoBehaviour{
     private TMPro.TMP_Text monologueText;
     private string monologue;
     private int monologueLength,index=0;
-    private bool wait=false;
+    private bool wait=false,skip=false;
     //Unity Built in
     private void Update() {
         if(Game.resetMonologue) monologueText.text=" ";
@@ -31,6 +31,7 @@ public class MonologueRenderer:MonoBehaviour{
     public System.Collections.IEnumerator RenderMonologue(char letter){
         Game.playMonologue=false;
         Game.resetMonologue=false;
+        Player.canMove=false;
         if(wait) {
             wait=false;
             yield return new WaitForSeconds(.4f);
@@ -39,12 +40,20 @@ public class MonologueRenderer:MonoBehaviour{
         if(letter=='.')  wait=true;
         monologueText.text+=letter;
         index++;
-        if(index==monologueLength) {
+        if(index==monologueLength || skip) {
+            if(Game.fadeEnd==true) {
+                //Play a certain animation
+                Player.canMove=true;
+            }
             Game.fadeStart=true;
+            Game.resetMonologue=true;
             index=0;
+            skip=false;
             yield break;
         }
         StartCoroutine(RenderMonologue(monologue.ElementAt(index)));       
     }
-
+    public void SkipMonologue(){
+        skip=true;
+    }
 }

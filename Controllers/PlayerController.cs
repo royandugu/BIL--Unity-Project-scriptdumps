@@ -39,16 +39,17 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        if(hasCollided){
-            xPressValue=0;
-            yPressValue=0;
+        if(Player.canMove){
+            if(hasCollided){
+                xPressValue=0;
+                yPressValue=0;
+            }
+            else{
+                GetUserInputs();
+                AnimatePlayer();
+                MovePlayer();
+            }
         }
-        else{
-            GetUserInputs();
-            AnimatePlayer();
-            MovePlayer();
-        }
-        
     }
     private void OnCollisionEnter2D(Collision2D other) {
         hasCollided=true;
