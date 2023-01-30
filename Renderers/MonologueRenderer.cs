@@ -8,16 +8,11 @@ public class MonologueRenderer:MonoBehaviour{
     private TMPro.TMP_Text monologueText;
     private string monologue;
     private int monologueLength,index=0;
-    private bool hasNotStarted=true;
-    //Unity Built ins
-    private void Start() {
-        //Yo location mah paxxi pani monologues haru auxa
-        
-    }
+    private bool wait=false;
+    //Unity Built in
     private void Update() {
         if(Game.resetMonologue) monologueText.text=" ";
-        if(Game.playMonologue && hasNotStarted) FetchAndPlay();
-        if(Game.playMonologue && hasNotStarted && Game.fadeEnd) FetchAndPlay();
+        if(Game.playMonologue) FetchAndPlay();
     }
     //User defined functions
     public void FetchAndPlay(){
@@ -34,13 +29,18 @@ public class MonologueRenderer:MonoBehaviour{
         return value.initials[(int)Player.selfConv++];
     }
     public System.Collections.IEnumerator RenderMonologue(char letter){
-        hasNotStarted=false;
-        yield return new WaitForSeconds(.1f); 
+        Game.playMonologue=false;
+        Game.resetMonologue=false;
+        if(wait) {
+            wait=false;
+            yield return new WaitForSeconds(.4f);
+        }
+        else yield return new WaitForSeconds(.13f);
+        if(letter=='.')  wait=true;
         monologueText.text+=letter;
         index++;
         if(index==monologueLength) {
             Game.fadeStart=true;
-            hasNotStarted=true;
             index=0;
             yield break;
         }

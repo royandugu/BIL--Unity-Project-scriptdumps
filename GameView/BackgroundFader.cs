@@ -10,15 +10,19 @@ public class BackgroundFader : MonoBehaviour {
         aController=new AnimationController(idleAnimationName);
     }  
     private void Update() {
-        if(Game.fadeStart) {
+        if(Game.fadeStart && Game.fadeIndex==0) {
             Game.fadeEnd=false;
             aController.ChooseAnimationState(animController,fadeAnimationName);
             Game.fadeStart=false;
+            Game.fadeIndex++;
+            Debug.Log("I am being called");
         }
     }
     //User defined
     public void OnFadeEnd(){
         Game.resetMonologue=true;
+        Game.playMonologue=true;
         Game.fadeEnd=true;
+        Game.fadeStart=false;
     }
 }
