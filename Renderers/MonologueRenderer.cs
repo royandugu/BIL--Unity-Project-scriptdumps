@@ -6,6 +6,8 @@ using Newtonsoft.Json;
 public class MonologueRenderer:MonoBehaviour{
     [SerializeField]
     private TMPro.TMP_Text monologueText;
+    [SerializeField]
+    private GameObject nextButton;
     private string monologue;
     private int monologueLength,index=0;
     private bool wait=false,skip=false;
@@ -32,26 +34,38 @@ public class MonologueRenderer:MonoBehaviour{
         Game.playMonologue=false;
         Game.resetMonologue=false;
         Player.canMove=false;
+        nextButton.SetActive(false);
+        
         if(wait) {
             wait=false;
             yield return new WaitForSeconds(.4f);
         }
-        else yield return new WaitForSeconds(.13f);
+        else yield return new WaitForSeconds(.1f);
         if(letter=='.')  wait=true;
         monologueText.text+=letter;
         index++;
-        if(index==monologueLength || skip) {
-            if(Game.fadeEnd==true) {
-                //Play a certain animation
-                Player.canMove=true;
-            }
-            Game.fadeStart=true;
-            Game.resetMonologue=true;
-            index=0;
-            skip=false;
+        if(index==monologueLength) {
+            nextButton.SetActive(true);
+            yield break;
+        }
+        if(skip) {
+            FinishRender();
             yield break;
         }
         StartCoroutine(RenderMonologue(monologue.ElementAt(index)));       
+    }
+    public void FinishRender(){
+        if(Game.fadeEnd==true) {
+            //Play a certain animation
+            Player.canMove=true;
+        }
+        Game.fadeStart=true;
+        Game.resetMonologue=true;
+        index=0;
+        skip=false;
+    }
+    public void NextMonologue(){
+        FinishRender();
     }
     public void SkipMonologue(){
         skip=true;
