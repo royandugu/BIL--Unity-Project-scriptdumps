@@ -1,5 +1,5 @@
 using UnityEngine;
-class RadialTrigger : MonoBehaviour {
+class PeopleRadialTrigger : MonoBehaviour {
     [SerializeField]
     private bool isPrimary;
     [SerializeField]
@@ -9,11 +9,9 @@ class RadialTrigger : MonoBehaviour {
     private CurrentNpcHolder currentNpcHolder;
     private byte phaseNumber,npcNumber;
     private PlayerController player;
-    private Transform playerTransform;
     private float xCord1,yCord1,distanceSquare;
     private void Start() {
-        player=GameObject.FindObjectOfType<PlayerController>();
-        playerTransform=player.transform;
+        player=GameObject.FindObjectOfType<PlayerController>(); //We can acess the co-ordinates from the Player class
         uiController=FindObjectOfType<UIControllers>();
         currentNpcHolder=FindObjectOfType<CurrentNpcHolder>();
         try{
@@ -28,8 +26,8 @@ class RadialTrigger : MonoBehaviour {
         }
     }
     private void Update() {
-        xCord1=playerTransform.position.x;
-        yCord1=playerTransform.position.y;
+        xCord1=Player.xCord;
+        yCord1=Player.yCord;
         float distanceSquare=(xCord1-transform.position.x)*(xCord1-transform.position.x)+(yCord1-transform.position.y)*(yCord1-transform.position.y);
         if(distanceSquare<=8 && npc.canTalk==true) {
             uiController.MakeVisible(0);

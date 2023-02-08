@@ -7,7 +7,7 @@ public class MonologueRenderer:MonoBehaviour{
     [SerializeField]
     private TMPro.TMP_Text monologueText;
     [SerializeField]
-    private GameObject nextButton;
+    private GameObject nextButton,skipButton,renderContainer;
     private string monologue;
     private int monologueLength,index=0;
     private bool wait=false,skip=false;
@@ -35,7 +35,7 @@ public class MonologueRenderer:MonoBehaviour{
         Game.resetMonologue=false;
         Player.canMove=false;
         nextButton.SetActive(false);
-        
+        SetContainerAndButtonStatus(true);
         if(wait) {
             wait=false;
             yield return new WaitForSeconds(.4f);
@@ -55,14 +55,21 @@ public class MonologueRenderer:MonoBehaviour{
         StartCoroutine(RenderMonologue(monologue.ElementAt(index)));       
     }
     public void FinishRender(){
+        SetContainerAndButtonStatus(false);
+        nextButton.SetActive(false);
         if(Game.fadeEnd==true) {
             //Play a certain animation
+
             Player.canMove=true;
         }
         Game.fadeStart=true;
         Game.resetMonologue=true;
         index=0;
         skip=false;
+    }
+    public void SetContainerAndButtonStatus(bool value){
+        renderContainer.SetActive(value);
+        skipButton.SetActive(value);
     }
     public void NextMonologue(){
         FinishRender();

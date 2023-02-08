@@ -39,6 +39,9 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
+        if(SceneLoader.GetCurrentScene()=="MainMenu") Destroy(this);
+        else DontDestroyOnLoad(this);
+        
         if(Player.canMove){
             if(hasCollided){
                 xPressValue=0;

@@ -8,7 +8,8 @@ public class SceneLoader
         MainMenu,
         StartMonologue,
         Settings,
-        ConversationScene
+        ConversationScene,
+        PBedRoom
     }
     public static void LoadScene(Scenes sceneName){
         SceneManager.LoadScene(sceneName.ToString());
