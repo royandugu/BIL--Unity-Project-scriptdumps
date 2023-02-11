@@ -17,7 +17,9 @@ Scripts that are not inherited from MonoBehaviour <br>
 2. Check ki eutai .anim le multiple scenes haru man multiple images haru ko laagi work garxa ki nai
 
 3. Fix collider controller names in colliderController (collison vayepaxi layer name k rakhne vanera)
+
+4. Can we improve a bit of logic in this MonologueRenderer (next button ra skip button laii eutai mah banauna milla?)
 ## Next commit<br>
-3. As the player goes near the door, open pops up and then when clicked open takes to next scene and in the next scene the player does not get destroyed
+3. Shop functionalities
 
 `Swear this is the last time I am working on fetching. Let's just move on with building and then let's see when we get performance issues as we pile up our conversations.`

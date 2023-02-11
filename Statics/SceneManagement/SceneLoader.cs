@@ -9,7 +9,8 @@ public class SceneLoader
         StartMonologue,
         Settings,
         ConversationScene,
-        PBedRoom
+        PBedRoom,
+        PlayerShop
     }
     public static void LoadScene(Scenes sceneName){
         SceneManager.LoadScene(sceneName.ToString());

@@ -28,8 +28,7 @@ class PeopleRadialTrigger : MonoBehaviour {
     private void Update() {
         xCord1=Player.xCord;
         yCord1=Player.yCord;
-        float distanceSquare=(xCord1-transform.position.x)*(xCord1-transform.position.x)+(yCord1-transform.position.y)*(yCord1-transform.position.y);
-        if(distanceSquare<=8 && npc.canTalk==true) {
+        if(Math.DistanceSquare(Player.xCord,transform.position.x,Player.yCord,transform.position.y)<=8 && npc.canTalk==true){
             uiController.MakeVisible(0);
             currentNpcHolder.SetNpc(npc);
         }

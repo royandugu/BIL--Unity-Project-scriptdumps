@@ -46,6 +46,7 @@ public class MonologueRenderer:MonoBehaviour{
         index++;
         if(index==monologueLength) {
             nextButton.SetActive(true);
+            skipButton.SetActive(false);
             yield break;
         }
         if(skip) {
