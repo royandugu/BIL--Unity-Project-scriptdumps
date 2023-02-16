@@ -5,9 +5,9 @@ using Newtonsoft.Json;
 
 public class MonologueRenderer:MonoBehaviour{
     [SerializeField]
-    private TMPro.TMP_Text monologueText;
+    private TMPro.TMP_Text monologueText,skipNextButtonText;
     [SerializeField]
-    private GameObject nextButton,skipButton,renderContainer;
+    private GameObject skipNextButton,renderContainer;
     private string monologue;
     private int monologueLength,index=0;
     private bool wait=false,skip=false;
@@ -34,7 +34,7 @@ public class MonologueRenderer:MonoBehaviour{
         Game.playMonologue=false;
         Game.resetMonologue=false;
         Player.canMove=false;
-        nextButton.SetActive(false);
+        skipNextButtonText.text="Skip";
         SetContainerAndButtonStatus(true);
         if(wait) {
             wait=false;
@@ -45,8 +45,7 @@ public class MonologueRenderer:MonoBehaviour{
         monologueText.text+=letter;
         index++;
         if(index==monologueLength) {
-            nextButton.SetActive(true);
-            skipButton.SetActive(false);
+            skipNextButtonText.text="Next";
             yield break;
         }
         if(skip) {
@@ -57,7 +56,6 @@ public class MonologueRenderer:MonoBehaviour{
     }
     public void FinishRender(){
         SetContainerAndButtonStatus(false);
-        nextButton.SetActive(false);
         if(Game.fadeEnd==true) {
             //Play a certain animation
 
@@ -70,12 +68,10 @@ public class MonologueRenderer:MonoBehaviour{
     }
     public void SetContainerAndButtonStatus(bool value){
         renderContainer.SetActive(value);
-        skipButton.SetActive(value);
-    }
-    public void NextMonologue(){
-        FinishRender();
+        skipNextButton.SetActive(value);
     }
     public void SkipMonologue(){
         skip=true;
+        if(index == monologueLength) FinishRender();
     }
 }

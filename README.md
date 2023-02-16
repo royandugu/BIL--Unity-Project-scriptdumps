@@ -18,8 +18,6 @@ Scripts that are not inherited from MonoBehaviour <br>
 
 3. Fix collider controller names in colliderController (collison vayepaxi layer name k rakhne vanera)
 
-4. Can we improve a bit of logic in this MonologueRenderer (next button ra skip button laii eutai mah banauna milla?)
 ## Next commit<br>
-3. Shop functionalities
-
+3. Shop functionalities ()
 `Swear this is the last time I am working on fetching. Let's just move on with building and then let's see when we get performance issues as we pile up our conversations.`
