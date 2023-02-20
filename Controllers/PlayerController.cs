@@ -40,6 +40,13 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         if(SceneLoader.GetCurrentScene()=="MainMenu") Destroy(this);
+
+        //PlayerShop entry from PlayerBedRoom
+        if(SceneLoader.GetCurrentScene()=="PlayerShop" && SceneStateKeeper.currentScene=="PBedRoom"){
+            transform.position=new Vector3(0,0,0);
+            SceneStateKeeper.currentScene="PlayerShop";
+        }
+
         else DontDestroyOnLoad(this);
         
         if(Player.canMove){

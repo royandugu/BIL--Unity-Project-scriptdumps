@@ -2,6 +2,8 @@
 
 public class CameraController : MonoBehaviour
 {
+    [SerializeField]
+    private float leftXLimit,rightXLimit,topYLimit,bottomYLimit;
     private Transform playerTransform;
     private Vector3 transPos;
     //Unity built-in functions
@@ -10,20 +12,20 @@ public class CameraController : MonoBehaviour
     }
     private void LateUpdate() {
         if(!playerTransform) return;
-        if(playerTransform.position.x>=-7.83){
-            transPos.x=-7.83f;
+        if(playerTransform.position.x>=rightXLimit){
+            transPos.x=rightXLimit;
             YChecks();
         }
-        else if(playerTransform.position.x<=-23.64){
-            transPos.x=-23.64f;
+        else if(playerTransform.position.x<=leftXLimit){
+            transPos.x=leftXLimit;
             YChecks();
         }
-        else if(playerTransform.position.y>=5.3){
-            transPos.y=5.3f;
+        else if(playerTransform.position.y>=topYLimit){
+            transPos.y=topYLimit;
             XChecks();
         }
-        else if(playerTransform.position.y<=-28){
-            transPos.y=-28f;
+        else if(playerTransform.position.y<=bottomYLimit){
+            transPos.y=bottomYLimit;
             XChecks();
         }
         else{
@@ -35,13 +37,13 @@ public class CameraController : MonoBehaviour
     }
     //User defined functions
     public void YChecks(){
-        if(playerTransform.position.y>=5.3) transPos.y=5.3f;
-        else if(playerTransform.position.y<=-28) transPos.y=-28f;
+        if(playerTransform.position.y>=topYLimit) transPos.y=topYLimit;
+        else if(playerTransform.position.y<=bottomYLimit) transPos.y=bottomYLimit;
         else transPos.y=playerTransform.position.y;
     }
     public void XChecks(){
-        if(playerTransform.position.x<=-23.64) transPos.x=-23.64f;
-        if(playerTransform.position.x>=5.3) transPos.x=5.3f;
+        if(playerTransform.position.x<=leftXLimit) transPos.x=leftXLimit;
+        if(playerTransform.position.x>=rightXLimit) transPos.x=rightXLimit;
         else transPos.x=playerTransform.position.x;
     }
 }
