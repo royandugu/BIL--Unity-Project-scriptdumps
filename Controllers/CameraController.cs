@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
     private Vector3 transPos;
     //Unity built-in functions
     private void Awake(){
-        playerTransform=GameObject.FindWithTag("Player").transform;    
+        playerTransform=GameObject.FindWithTag("Player").transform;   //This is to be done because hamro player choices haru agadi bata auxa 
     }
     private void LateUpdate() {
         if(!playerTransform) return;

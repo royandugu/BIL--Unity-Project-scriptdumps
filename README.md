@@ -22,6 +22,8 @@ Scripts that are not inherited from MonoBehaviour <br>
 
 5. Scene change huda naya scene mah player ko euta location hunxa ni
 
+6. A better approach to GameObject.FindPlayerWithTag?
+
 ## Next commit<br>
 3. Shop functionalities (CustomerGeneration)
 `Swear this is the last time I am working on fetching. Let's just move on with building and then let's see when we get performance issues as we pile up our conversations.`
